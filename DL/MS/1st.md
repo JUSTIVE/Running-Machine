@@ -1,6 +1,6 @@
-# Python Deep Learning
+### Python Deep Learning
 
-## Valentino Zocca, Gianmario Sapcagna, Daniel Slater, Peter Roelants
+### Valentino Zocca, Gianmario Sapcagna, Daniel Slater, Peter Roelants
 
 # Machine Learning - an Introduction
 

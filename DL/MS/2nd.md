@@ -10,6 +10,7 @@
 >$\varphi$를 *sigmoid* 함수라 할 때, $[0,1]^n$ 또는 $R^n$의 부분 집합에서 실수의 연속 함수 f 와 $\epsilon>0$이 주어지면  
 >> sigmoid란 이렇게 생긴 함수를 말함  
 $S(x)=\frac{1}{1+e^{-x}}=\frac{e^x}{e^x+1}$  
+
 이 함수는 미분값으로 $\frac{dy}{dx}=\frac{e^x}{(1+e^x)^2}$인데 계산하기 쉬워서 사용
 >>
 >다음을 만족하는 벡터 $w=(w_1,w_2,...w_n)$,$\alpha$,$\theta$ 와 매개 함수 $G(\cdot,w,\alpha,\theta):[0,1]^n\rightarrow R$이 존재한다.  
