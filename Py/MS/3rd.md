@@ -92,7 +92,7 @@ for number in [0,1,2,3,4]:
 
 위의 예제는 0에서 4까지의 수를 출력할 것이다. for 반복문은 [0,1,2,3,4] 리스트에 적용되고, 매 회차마다, number는 시퀀스에서 주어진 값이 된다.
 
-### range를 따라 반복하기
+#### range를 따라 반복하기
 
 때로는 우리는 숫자들의 범위를 따라 반복해야 할 때가 있다. 그리고 리스트를 하드코딩하는 것은 매우 불쾌한 일이 될 것이다. 이런 경우, `range` 함수가 구해줄 것이다. 다음의 코드를 보자.
 
@@ -115,7 +115,7 @@ for number in range(5):
 
 여기서 `range(...)`를 `list`로 묶은 것은 무시하자. `range`객체는 조금 특별하나, 이 경우에서는 어떤값들이 반환되어지는 지만 확인하자.
 
-### 시퀀스를 따라 반복하기
+#### 시퀀스를 따라 반복하기
 
 이제 우리는 시퀀스를 따라 반복할 모든 도구가 있다. 다음의 예제를 보자.
 
@@ -150,8 +150,49 @@ for position, surname in enumerate(surnames):
 
 for 반복문을 이용하여 `리스트`, `튜플`, 그리고 파이썬에서 `iterable`이라 불리는 것들을 따라 반복할 수 있다. 이것은 매우 중요한 개념이니 자세히 보자.
 
-### Iterators and iterables
+#### Iterators and iterables
 
 파이썬의 문서에 따르면 iterable은 다음과 같다.
 > 스스로의 멤버를 한번에 하나씩 반환할 수 있는 객체를 의미한다. 예를 들어 iterables는 모든 시퀀스 타입(`list`,`str`,`tuple`)와, `dict`, `file`과 같은 몇몇 비-시퀀스 타입, 그리고 \_\_iter__( ) 혹은 \_\_getitem__( )이 정의된 모든 클래스를 포함한다. Iterables는 반복문과 시퀀스가 필요한 곳(zip( ),map( ),...)에서 쓰일 수 있다.
 
+간단히, 우리가 *for k in sequence: ... body ...* 를 쓸때 for문은 시퀀스의 다음 요소를 물어보고, 무언갈 받으면 k라 부르며 body를 실행하고 반복한다.
+
+리스트, 튜플, 스트링과 같은 몇몇 자료구조에서는 반복을 할 때 그들의 요소를 순서대로 생성한다. 반면 sets나 dictionary같은 애들은 아니다.
+
+#### 여러 시퀀스를 반복하기
+
+두 개의 같은 길이를 가진 시퀀스가 있을 때 이 쌍을 구하기 위해 어떻게 해야 하는가? 우선 다음의 대충 만든 예제를 보고 조금씩 다듬자
+
+```python
+# multiple.sequence.py
+people = ['Jonas','Julio','Mike','Mez']
+ages= [25,30,31,39]
+for position in range(len(people)):
+    person = people[position]
+    age = ages[position]
+    print(person, age)
+```
+
+이 코드는 효율적이지도 않고 파이썬같지도 않다. 비효율적인 이유는 특정 위치의 요소를 가져오는 것이 비싼 작업이고, 이걸 매 반복마다 하고 있기 때문이다. 위의 코드를 `enumerate`를 이용해서 바꿔보자
+
+```python
+# multiple.sequence.enumerate.py
+people = ['Jonas','Julio','Mike','Mez']
+ages= [25,30,31,39]
+for position, person in enumerate(people):
+    age = ages[position]
+    print(person,age)
+```
+
+좀 더 낫지만, 아직 완벽하진 않고 조금 못생겼다. 위의 예제에서 여전히 age의 값을 position으로 가져오고 있다. 파이썬의 zip을 이용해서 바꿔보자
+
+```python
+people = ['Jonas','Julio','Mike','Mez']
+ages= [25,30,31,39]
+for person, age in zip(people,ages):
+    print(person, age)
+```
+
+훨씬 낫지 않은가!
+
+### while 반복문
