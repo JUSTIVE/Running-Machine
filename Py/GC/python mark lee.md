@@ -369,3 +369,385 @@ replace 교체, a를 b로
 
 endswith는 인덱스가 맞다면 true 아니면 false 를 반환하는 bool 형임.
 count는 뭐..
+
+대화형 모드(tty - >>>,...을 사용하는)에서 마지막에 출력된 표현식은 `_`를 쓰면 그 값에 대입된다.-콘솔만임..
+ex)마지막 값이 15였다면 _는 15다.
+
+--
+
+set과 frozenset 두가지 유형, set 가변 fro 불변  
+
+해시가능성이란, 사전에 대한 키 뿐만 아니라 객체를 집합 멤버로사용. 해시값이 불변하면 해시가능,
+
+동일하게 비교되는 객체는 동일한 해시 값을 가져야함.
+ex)
+>>> small_primes = set()  # empty set 
+>>> small_primes.add(2)  # adding one element at a time 
+>>> small_primes.add(3) 
+>>> small_primes.add(5)
+>>> small_primes
+{2, 3, 5}
+>>> small_primes.add(1)  # Look what I've done, 1 is not a prime! 
+>>> small_primes 
+{1, 2, 3, 5}
+>>> small_primes.remove(1)  # so let's remove it 
+>>> 3 in small_primes  # membership test 
+True 
+>>> 4 in small_primes 
+False 
+>>> 4 not in small_primes  # negated membership test 
+True 
+>>> small_primes.add(3)  # trying to add 3 again 
+>>> small_primes 
+{2, 3, 5}  # no change, duplication is not allowed 
+>>> bigger_primes = set([5, 7, 11, 13])  # faster creation 
+>>> small_primes | bigger_primes  # union operator `|` 
+{2, 3, 5, 7, 11, 13} 
+>>> small_primes & bigger_primes  # intersection operator `&` 
+{5} 
+>>> small_primes - bigger_primes  # difference operator `-` 
+{2, 3} 
+
+세트를 만드는 다른방법-단지 중괄호. +중복되는 값은 세트에서 아무상관이읍다.
+>>> small_primes = {2, 3, 5, 5, 3} 
+>>> small_primes 
+{2, 3, 5} 
+
+아래는 frozenset.
+
+>>> small_primes = frozenset([2, 3, 5, 7]) 
+>>> bigger_primes = frozenset([5, 7, 11]) 
+>>> small_primes.add(11)  # we cannot add to a frozenset 
+Traceback (most recent call last):  
+File "<stdin>", line 1, in <module> 
+AttributeError: 'frozenset' object has no attribute 'add' 
+>>> small_primes.remove(2)  # neither we can remove 
+Traceback (most recent call last):  
+File "<stdin>", line 1, in <module> 
+AttributeError: 'frozenset' object has no attribute 'remove' 
+>>> small_primes & bigger_primes  # intersect, union, etc. allowed 
+frozenset({5, 7}) 
+
+사전(dictionary)-가장 흥미로운 유형??
+
+유일한 표준, 모든 파이썬 객체의 백본
+
+키는 해시가능 객체여야 하고 값은 임의의 유형일 수 있다.
+ex) 사전을 만드는 다섯가지 방법{'A': 1, 'Z': -1}
+
+>>> a = dict(A=1, Z=-1) 
+>>> b = {'A': 1, 'Z': -1} 
+>>> c = dict(zip(['A', 'Z'], [1, -1])) 
+>>> d = dict([('A', 1), ('Z', -1)]) 
+>>> e = dict({'Z': -1, 'A': 1}) 
+>>> a == b == c == d == e  # are they all the same? 
+True  # indeed!
+
+더블이콜을
+
+객체가 할당 될떄 하나, 다른 객체와 동일한지 검사할때 하나, 이렇게 더블이콜씀
+
+다른 방법도 있는데 id가 같을경우 비교 가능,근데 안그러면 걍'=='
+
+>>> list(zip(['h', 'e', 'l', 'l', 'o'], [1, 2, 3, 4, 5])) 
+[('h', 1), ('e', 2), ('l', 3), ('l', 4), ('o', 5)] 
+>>> list(zip('hello', range(1, 6)))  # equivalent, more Pythonic 
+[('h', 1), ('e', 2), ('l', 3), ('l', 4), ('o', 5)] 
+
+
+zip은 리스트가 아닌 반복자(iterator)를 반환한다.
+
+
+ex)basic oper???사전으로 돌아감??
+
+>>> d = {}
+>>> d['a'] = 1  # let's set a couple of (key, value) pairs 
+>>> d['b'] = 2 
+>>> len(d)  # how many pairs? 
+2 
+>>> d['a']  # what is the value of 'a'? 
+1 
+>>> d  # how does `d` look now? 
+{'a': 1, 'b': 2} 
+>>> del d['a']  # let's remove `a` 
+>>> d 
+{'b': 2} 
+>>> d['c'] = 3  # let's add 'c': 3 
+>>> 'c' in d  # membership is checked against the keys 
+True 
+>>> 3 in d  # not the value.. 값으론 매칭이 안되나??
+False 
+>>> 'e' in d 
+False 
+>>> d.clear()  # let's clean everything from this dictionary 
+>>> d 
+{}
+
+수행중인 작업 유형에 관계없이 사전 키를 액세스하는 방법은 대괄호를 통해 수행됩니다.
+
+문자열, 목록 및 튜플을 기억하십니까? 대괄호를 사용하여 일부 위치의 요소에 액세스하고있었습니다. 파이썬의 일관성에 대한 또 다른 예입니다.
+
+키,값,항목(key,values,item)의 특수한 세가지 항목에 대해 알아보자.
+
+이 세가지는 사전의 동적보기-dynamic view. 를 제공, 사전이 변경될떄 변경된다.
+
+key()는 사전에 있는 모든 키를 반환하고, value()은 사전의 모든 값을 반환하며, items()은 사전의 모든 (key, values) 쌍을 반환합니다.
+
+사전이 본질적으로 정렬되지 않은 경우에도 Python 설명서에 따라 다음과 같이 알아야합니다. "키와 값은 무작위 순서가 아닌 임의 순서로 반복되며 Python 구현에 따라 다르며 사전의 기록에 따라 다릅니다 키, 값 및 항목보기가 사전에 개입하지 않고 반복되는 경우 항목 순서가 직접 일치합니다. "
+
+>>> d = dict(zip('hello', range(5)))
+>>> d 
+{'e': 1, 'h': 0, 'o': 4, 'l': 3} #가 2와3임. zip에 의해
+>>> d.keys() 
+dict_keys(['e', 'h', 'o', 'l'])#2와3이 쌍을 이룬다.
+>>> d.values() 
+dict_values([1, 0, 4, 3]) #사전에서 l의 두번째가 첫번쨰를 덮어씌움.
+>>> d.items() 
+dict_items([('e', 1), ('h', 0), ('o', 4), ('l', 3)]) 
+>>> 3 in d.values() 
+True 
+>>> ('o', 4) in d.items() 
+True
+
+주목할 점은 뷰를 요청하면 원래의 순서가 손실된다. 그러나 뷰
+내에서는 일관된다.- 내부가 어떻듯 보이는건 또옥같은듯.
+
+그리고 다시 컴퓨터에서 코드를 돌리면 다른결과가 나올수도있음.
+뷰가 제공되는 순서의 일관성만 보장한다고한다.
+
+>>> d
+{'e': 1, 'h': 0, 'o': 4, 'l': 3}
+>>> d.popitem()  # removes a random item
+('e', 1)
+>>> d
+{'h': 0, 'o': 4, 'l': 3}
+>>> d.pop('l')  # remove item with key `l`
+3
+>>> d.pop('not-a-key')  # remove a key not in dictionary: KeyErrorTraceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  KeyError: 'not-a-key'
+  >>> d.pop('not-a-key', 'default-value')  # with a default value?'default-value'  # we get the default value
+  >>> d.update({'another': 'value'})  # we can update dict this way
+  >>> d.update(a=13)  # or this way (like a function call)
+  >>> d
+  {'a': 13, 'another': 'value', 'h': 0, 'o': 4}
+  >>> d.get('a')  # same as d['a'] but if key is missing no KeyError
+  13
+  >>> d.get('a', 177)  # default value used if key is missing
+  13
+  >>> d.get('b', 177)  # like in this case
+  177
+  >>> d.get('b')  # key is not there, so None is returned
+
+파이썬은 기본적으로 모든 함수가 none을 반환(return)한다. 명시적으로 설정하지 않는한. 그러나 우리가 기능을 탐색할때 볼수있음.
+
+false none 둘다 false를 가리키기는 함. 그러나 차이가있다.
+
+사전의 setdefalut 기능 예제.
+
+>>> d = {}
+>>> d.setdefault('a', 1)  # 'a' is missing, we get default value
+1
+>>> d
+{'a': 1}  # also, the key/value pair ('a', 1) has now been added
+>>> d.setdefault('a', 5)  # let's try to override the value1
+>>> d
+{'a': 1}  # didn't work, as expected
+
+>>>d = {}
+>>>d.setdefault('a', P{}).setdefalut('b', []).append(1)
+
+#h2 collection modeul.
+
+nametuple()  네임필드를 써서 튜플 서브클래스를 만드는 공장함수.
+deque 양쪽 끝에 빠른 팝과 추가기능이 있는 리스트 같은 컨테이너.
+chainMap 멀티 맵핑에서 싱글 뷰를 만드는 딕트 같은 클래스.-여러가지 맵핑을 단일보기를 위해하는건가??
+Counter 해시 오브젝트를 카운팅하는 딕트서브클래스
+OrderedDict 추가된 주문 항목을 기억하는 딕트 서브클래스
+defalutdict 누락된 값을 제공하는 공장 기능을 호출하는 딕트서브클래스
+Userdict 용이한 딕트 서브클래스를 위한 근처 사전 포장?
+UserList 리스트의 서브클래스를 쉽게 하기위한것.
+UserString 문자열 서브클래싱을 위한 래퍼.
+
+
+
+#h2 named tupels.
+
+속성 검색을 통해 필드에 액세스가능하고 색인화 및 반복 가능한 튜플과 비슷한 개체(튜플의 서브클래스.)
+
+>>> vision = (9.5, 8.8)
+>>> vision
+(9.5, 8.8)
+>>> vision[0]  # left eye (implicit positional reference)
+9.5
+>>> vision[1]  # right eye (implicit positional reference)
+8.8
+
+
+
+>>> from collections import namedtuple
+>>> Vision = namedtuple('Vision', ['left', 'right'])
+>>> vision = Vision(9.5, 8.8)
+>>> vision[0]
+9.5
+>>> vision.left  # same as vision[0], but explicit
+9.5
+>>> vision.right  # same as vision[1], but explicit
+8.8
+
+Vision = namedtuple('Vision', ['left', 'combined', 'right'])
+vision = Vision(9.5, 9.2, 8.8)
+vision.left  # still perfect
+9.5
+vision.right  # still perfect (though now is vision[2])
+8.8
+print(vision.combined)  # the new vision[1]
+9.2
+
+named tuple= 선언+이름으로인덱스에 접근하는 친구
+
+#h2 Defalutdict
+
+키가 사전에 있는지 검사하는 도구.
+
+>>> d = {}
+>>> d['age'] = d.get('age', 0) + 1  # age not there, we get 0 + 1
+>>> d
+{'age': 1}
+>>> d = {'age': 39}
+>>> d['age'] = d.get('age', 0) + 1  # d is there, we get 40
+>>> d
+{'age': 40}
+
+>> from collections import defaultdict
+>>> dd = defaultdict(int)  # int is the default type (0 the value)>>> dd['age'] += 1  # short for dd['age'] = dd['age'] + 1
+>>> dd
+defaultdict(<class 'int'>, {'age': 1})  # 1, as expected
+>>> dd['age'] = 39
+>>> dd['age'] += 1
+>>> dd
+defaultdict(<class 'int'>, {'age': 40})  # 40, as expected
+
+#h2 chainmap
+
+다수의 매핑을 연결해 단일유닛으로 취급.
+
+>>>from collections import ChainMap
+>>> default_connection = {'host': 'localhost', 'port': 4567}
+>>> connection = {'port': 5678}
+>>> conn = ChainMap(connection, default_connection) # map creation
+>>> conn['port']  # port is found in the first dictionary
+5678
+>>> conn['host']  # host is fetched from the second dictionary
+'localhost'
+>>> conn.maps  # we can see the mapping objects
+[{'port': 5678}, {'host': 'localhost', 'port': 4567}]
+>>> conn['host'] = 'packtpub.com'  # let's add host
+>>> conn.maps
+[{'host': 'packtpub.com', 'port': 5678}, {'host': 'localhost', 'port': 4567}]
+>>> del conn['port']  # let's remove the port information
+>>> conn.maps
+[{'host': 'packtpub.com'}, {'host': 'localhost', 'port': 4567}]
+>>> conn['port']  # now port is fetched from the second dictionary
+4567
+>>> dict(conn)  # easy to merge and convert to regular dictionary
+{'host': 'packtpub.com', 'port': 4567}
+
+
+#h2 small values caching
+
+값이 큰 두개의 다른 객체가 생성될때 그 값이 같다해도 id를 비교하면 다르게나오지만 만약 값이 작은 ex)5 라면 같게 나올수도있음..
+id를 사용할때 작은값은 주의하자.
+
+
+#h2 데이터 구조 선택
+
+컬렉션이 추가or 축소 x = 튜플 o= 목록 이 좋다. 사전도 가능
+
+기억하자. {} 객체, () 튜플 []리스트 {id:값} 사전
+
+리스트는 o(n)이 걸린다.
+-c,java언어를 기억하자 코드를내부에서 해주는 것일뿐 시간은 동등하다
+
+사전의 경우 o(1)의 목록삽입,제거 기능이 있지만.. 각 속성으로 고유하게 식별(키) +해시가능해야함
+
+>>> a = list(range(10))  # `a` has 10 elements. Last one is 9.
+>>> a
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+>>> len(a)  # its length is 10 elements
+10
+>>> a[len(a) - 1]  # position of last one is len(a) - 1
+9
+>>> a[-1]  # but we don't need len(a)! Python rocks!
+9
+>>> a[-2]  # equivalent to len(a) - 2
+8
+>>> a[-3] #equivalent to lea(a) -3
+7
+
+
+#h1 lterating and Making Decisions
+
+흐름 제어를 위해서는 분기와 루핑이 있다.
+
+#h2 conditional pro
+
+조건부 프로그래밍 or 브랜칭
+
+#h3 the ternary operator 삼 연산자
+
+
+반복
+surnames = ['Rivest', 'Shamir', 'Adleman']
+for position, surname in enumerate(surnames):
+    print(position, surname)
+
+    인덱스, 요소값 전부 출력 개꿀따리
+
+#h4 iterator.
+
+파이썬 문서에 따르면 iterable은 "한 번에 하나씩 멤버를 반환 할 수있는 객체입니다. iterables의 예로는 모든 시퀀스 유형 (list, str 및 tuple과 같은)과 dict, file과 같은 일부 비 시퀀스 유형 객체 및 개체를 __iter __ () 또는 __getitem __ () 메서드로 정의 할 수 있습니다. 반복문은 for 루프 및 시퀀스가 필요한 많은 다른 위치에서 사용할 수 있습니다 (zip (), map (), ...). ).
+
+  반복 가능한 객체가 내장 함수 iter ()에 인수로 전달되면 객체의 반복자를 반환합니다. 이 반복자는 값 집합에 대해 한 번만 수행하면 좋습니다. iterables를 사용할 때 iter ()를 호출하거나 iterator 객체를 직접 다룰 필요는 없다. for 문은 루프의 지속 기간 동안 반복자를 유지하기 위해 이름이 지정되지 않은 임시 변수를 생성하여 자동으로 수행합니다. "
+
+for가 다음요소에 의해 zip을 요청하면 객체가아니라 튜플을 되찾는다.
+zip에 공급하는 시퀀스만큼 튜플가져옴
+people = ['Jonas', 'Julio', 'Mike', 'Mez']
+ages = [25, 30, 31, 39]
+for person, age in zip(people, ages):    
+    print(person, age)
+
+이때 객체들의 인덱스 크기가 다르면 같은 곳 까지만 가져옴
+즉 모든 객체들의 인덱스 크기가 같은곳끼리만 반복.
+
+remainders = remainders[::-1] #인덱스를 역순으로 바꿔버림.
+
+raise 기능이 뭔지 알자.
+count 클래스는 계산을 계속할 반복자를 만듭니다.
+
+itertools lib count.
+from itertools import count
+for n in count(5, 3):    #(range(5,20+1 ,3))이랑 다른게뭐지
+if n > 20:        
+break    
+print(n, end=', ')  # instead of newline, comma and space
+
+이 반복자는 셀렉터의 해당 항목에 따라 데이터를 True 또는 False로 반환합니다. compress ( 'ABC', (1, 0, 1))는 'A'와 'C'를 반환합니다.
+
+from itertools import compress
+data = range(10)
+even_selector = [1, 0] * 10
+odd_selector = [0, 1] * 10
+
+even_numbers = list(compress(data, even_selector))
+odd_numbers = list(compress(data, odd_selector))
+
+print(odd_selector)
+print(list(data))
+print(even_numbers)
+print(odd_numbers)
+
+문자열의 순열. abc=3! 3*2*1   
+
+from itertools import permutations
+print(list(permutations('ABC')))
