@@ -74,3 +74,57 @@
 - integer division (`//`): 소수점 아래자리를 버림하는 나누기 연산자
 
 위의 두 나누기 연산자가 음수와 양수에서 어떻거 다르게 동작하는지 다음의 예제를 통해 확인해보자
+
+```python
+>>> 7 / 4  # true division
+1.75
+>>> 7 // 4  # integer division, flooring returns 1
+1
+>>> -7 / 4  # true division again, result is opposite of previous
+-1.75
+>>> -7 // 4  # integer div., result not the opposite of previous
+-2
+```
+
+이는 매우 흥미로운 결과이다. 마지막 줄에서 -1을 기대했겠지만, 파이썬에서의 버림은 음수 무한대를 향한다. 버림 대신 깔끔하게 소수점 아래를 자르고 싶다면 내장 함수인 int를 사용하는 것을 추천한다.
+
+또한 파이썬은 나누기의 나머지 값을 구하는 모듈로 연산자가 있다. 이는 (`%`)로 표현된다
+
+### 부울
+
+부울 대수는 대수의 부분집합으로, `True`와 `False`로 진리값을 나타내는 것이다. Boolean은 integer의 subclass로, 1과 0처럼 동작한다. `int` 클래스에 대응되는 Boolean 클래스는 `bool` 이며, `True` 혹은 `False`를 반환한다. 모든 파이썬의 내장 객체는 `bool` 내장함수를 통해 `True` 혹은 `False` 값으로 평가될 수 있다.
+
+부울 값은 `and`, `or`, `not`과 같은 논리 연산자와 사용되어질 수 있다.
+
+### 실수
+
+파이썬에서의 실수, 혹은 부동 소수점 숫자는 IEEE-754를 따른다. 이는 64비트의 정보를 `부호`, `지수`, `가수`의 영역으로 구성된다.
+일반적인 프로그래밍 언어는 개발자에게 단정도(single precision)와 배정도(double precision)의 선택지를 준다. 파이썬은 오로지 배정도의 정밀도를 지원한다.  
+
+*`sys.float_info`* 구조체는 당신의 시스템에서 부동소수점이 동작할 지를 알려준다.
+
+파이썬의 부동 소수점은 정확하지 않다. 다음의 예를 보자.
+
+```python
+>>> 3 * 0.1 - 0.3 # this should be 0!!!
+5.551115123125783e-17
+```
+
+이러한 오차는 세밀한 값들을 다룰 때 큰 문제가 될 수 있다. 걱정말자. 파이썬은 `Decimal`자료형을 통해 이러한 문제를 해결한다. 
+
+### 복소수
+
+파이썬은 복소수를 다룰 수 있는 기능들을 내장하고 있다. 다음의 예제를 보자.
+
+```python
+>>> c = 3.14 + 2.73j
+>>> c.real # real part
+3.14
+>>> c.imag # imaginary part
+2.73
+>>> c.conjugate() # conjugate of A + Bj is A - Bj
+(3.14-2.73j)
+>>> c*2 # muliplication is allowed
+(6.28+5.46j)
+>>> c ** 2  # power operation as well(2.4067000000000007+17.1444j)>>> d = 1 + 1j  # addition and subtraction as well>>> c - d(2.14+1.73j)
+```
