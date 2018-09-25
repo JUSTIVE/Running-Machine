@@ -270,6 +270,7 @@ True
 튜플 배정문이 허용하는 것 중 하나는, *`one-line swaps`*인데, 임시 변수 없이 가능하다.
 
 원래 사용하던 방식을 보자.
+
 ```python
 >>> a, b = 1, 2
 >>> c = a  # we need three lines and a temporary var c
@@ -309,3 +310,88 @@ True
 ['h', 'e', 'l', 'l', 'o']
 ```
 
+위의 magic이라 표현된 부분은 `list comprehension`이라 불리며, 파이썬의 강력한 함수형 기능 중 하나이다.
+
+리스트에서 제공하는 함수들을 다음의 예제를 통해 확인하자.
+
+```python
+>>> a= [1,2,1,3]
+>>> a.append(13) # we can append anything at the end
+>>> a
+[1, 2, 1, 3, 13]
+>>> a.count(1)  # how many `1` are there in the list?
+2>>> a.extend([5, 7])  # extend the list by another (or sequence)
+>>> a
+[1, 2, 1, 3, 13, 5, 7]
+>>> a.index(13)  # position of `13` in the list (0-based indexing)
+4
+>>> a.insert(0, 17)  # insert `17` at position 0
+>>> a
+[17, 1, 2, 1, 3, 13, 5, 7]
+>>> a.pop()  # pop (remove and return) last element
+7
+>>> a.pop(3)  # pop element at position 3
+1
+>>> a
+[17, 1, 2, 3, 13, 5]
+>>> a.remove(17)  # remove `17` from the list
+>>> a
+[1, 2, 3, 13, 5]
+>>> a.reverse()  # reverse the order of the elements in the list
+>>> a
+[5, 13, 3, 2, 1]
+>>> a.sort()  # sort the list
+>>> a[1, 2, 3, 5, 13]
+>>> a.clear()  # remove all elements from the list
+>>> a[]
+
+>>> a = list('hello')  # makes a list from a string
+>>> a['h', 'e', 'l', 'l', 'o']
+>>> a.append(100)  # append 100, heterogeneous type
+>>> a
+['h', 'e', 'l', 'l', 'o', 100]
+>>> a.extend((1, 2, 3))  # extend using tuple
+>>> a
+['h', 'e', 'l', 'l', 'o', 100, 1, 2, 3]
+>>> a.extend('...')  # extend using string
+>>> a
+['h', 'e', 'l', 'l', 'o', 100, 1, 2, 3, '.', '.', '.']
+
+>>> a = [1, 3, 5, 7]
+>>> min(a)  # minimum value in the list
+1
+>>> max(a)  # maximum value in the list
+7
+>>> sum(a)  # sum of all values in the list
+16>>> len(a)  # number of elements in the list
+4
+>>> b = [6, 7, 8]
+>>> a + b  # `+` with list means concatenation
+[1, 3, 5, 7, 6, 7, 8]
+>>> a * 2  # `*` has also a special meaning
+[1, 3, 5, 7, 1, 3, 5, 7]
+```
+
+마지막의 두 줄은 연산자 오버로딩의 개념을 소개한다.다음은 파이썬의 정렬 메소드가 얼마나 강력한지 보여준다.
+
+```python
+>>> from operator import itemgetter
+>>> a = [(5, 3), (1, 3), (1, 2), (2, -1), (4, 9)]
+>>> sorted(a)
+[(1, 2), (1, 3), (2, -1), (4, 9), (5, 3)]
+>>> sorted(a, key=itemgetter(0))
+[(1, 3), (1, 2), (2, -1), (4, 9), (5, 3)]
+>>> sorted(a, key=itemgetter(0, 1))
+[(1, 2), (1, 3), (2, -1), (4, 9), (5, 3)]
+>>> sorted(a, key=itemgetter(1))
+[(2, -1), (1, 2), (5, 3), (1, 3), (4, 9)]
+>>> sorted(a, key=itemgetter(1), reverse=True)
+[(4, 9), (5, 3), (1, 3), (1, 2), (2, -1)]
+```
+
+다음은 위의 코드의 설명이다. 우선 a 는 튜플의 리스트이다.(정확히는 2-튜플) 우리는 `sorted(list)` 를 통해 `list`의 정렬된 버전을 얻을 수 있다. 이 경우, 정렬은 튜플의 첫 요소를 기준으로 정렬한 후, 첫 요소의 값이 같은 경우, 두 번째 요소에 대해서 정렬한다. 파이썬에서는 각 튜플에서 튜플 내의 정렬 우선순위를 정할 수 있게 할 수 있으며, 이는 `key=itemgetter(index)`와 같이 사용되어진다. 이 경우, 여러 인덱스가 들어갈 수 있으며 각 인덱스의 순별로 정렬의 우선순위가 결정된다.
+또한 reverse의 값을 줌으로써 정렬을 역순으로 수행할 수 도 있다.
+
+파이썬의 정렬 알고리즘은 `Tim Peters`에 의해 작성된 `Timsort`를 사용하며, 매우 강력한 합병정렬과 삽입정렬의 혼합으로 구성되어있다. 이 정렬 알고리즘은 대부분의 주요 언어들의 정렬보다 나은 속도를 가진다. Timsort는 안정된 알고리즘이며, 이는 여러 우선순위로 정렬할 때, 원본의 우선순위를 보존한다는 것이다.
+
+### 바이트 배열
