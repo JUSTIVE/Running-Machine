@@ -395,3 +395,223 @@ True
 파이썬의 정렬 알고리즘은 `Tim Peters`에 의해 작성된 `Timsort`를 사용하며, 매우 강력한 합병정렬과 삽입정렬의 혼합으로 구성되어있다. 이 정렬 알고리즘은 대부분의 주요 언어들의 정렬보다 나은 속도를 가진다. Timsort는 안정된 알고리즘이며, 이는 여러 우선순위로 정렬할 때, 원본의 우선순위를 보존한다는 것이다.
 
 ### 바이트 배열
+
+*`bytearray`*은 기본적으로 `bytes` 객체의 가변 버전이다. 이들은 대부분의 가변 기쿠너스의 유용한 메소드와 `bytes`타입의 메소드를 포함한다. 아이템은 `[0,256)`범위 내의 값을 가진다. 다음의 간단한 예제를 보자.
+
+```python
+>>> bytearray() # empty bytearray object
+bytearray(b'')
+>>> bytearray(10) # zero-filled instance with given length
+bytearray(b'\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00')
+>>> bytearray(range(5)) # bytearray from iterable of integers
+>>> bytearray(b'\x00\x01\x02\x03\x04')
+>>> name = bytearray(b'Lina') # A - bytearray from bytes
+>>> name.replace(b'L', b'l')
+bytearray(b'lina')
+>>> name.endswith(b'na')
+True
+>>> name.upper()
+bytearray(b'LINA')
+>>> name.count(b'L')
+1
+```
+
+바이트 배열은 소켓을 통해 데이터를 받거나, 받은 데이터를 연결할 때 등 여러 상황에서 유용하게 쓰일 수 있다.
+
+## Set 타입
+
+파이썬은 `set`과 `frozenset`의 두 가지의 `set` 타입을 지원한다. `set`은 가변적이며, `frozenset`은 불변이다. 이들은 순서없는 불변객체의 콜렉션이다.
+`Hashability`는 딕셔너리에 대한 키뿐만 아니라 객체를 집합 멤버로 사용할 수있게 해주는 특성이다.
+
+비교값이 동등한 객체들은 같은 해쉬 값을 가진다. Set은 멤버쉽을 확인하는 데에 주로 쓰인다. 다음의 예제를 통해 `in` 연산자를 소개하도록 한다.
+
+```python
+>>> small_primes = set() # empty set
+>>> small_primes.add(2) # adding one element at a time
+>>> small_primes.add(3)
+>>> small_primes.add(5)
+>>> small_primes
+{2, 3, 5}
+>>> small_primes.add(1) # Look what I've done, 1 is not a prime!
+>>> small_primes
+{1, 2, 3, 5}
+>>> small_primes.remove(1) # so let's remove it
+>>> 3 in small_primes # membership test
+True
+>>> 4 in small_primes
+False
+>>> 4 not in small_primes # negated membership test
+True
+>>> small_primes.add(3) #trying to add 3 again
+>>> small_primes
+{2, 3, 5} # no change, duplication is not allowed
+>>> bigger_primes = set([5,7,11,13]) # faster creation
+>>> small_primes | bigger_primes # union operator `|`
+{2, 3, 5, 7, 11, 13}
+>>> small_primes & bigger_primes # intersection operator `&`
+{5}
+>>> small_primes - bigger_primes # difference operator `-`
+{2,3}
+```
+
+위의 예제에서 보듯, set은 아무 iterable로부터 만들고 더하고 뺄 수 있다.
+set을 만드는 다른 방법은 중괄호를 쓰는 방법이다. 이는 다음과 같다.
+
+```python
+>>> small_primes = {2,3,5,5,3}
+>>> small_primes
+{2, 3, 5}
+```
+
+다음의 예제를 통해 set의 불변형인 `frozenset`을 보도록 하자.
+
+```python
+>>> small_primes = frozenset([2, 3, 5, 7])
+>>> bigger_primes = frozenset([5, 7, 11])
+>>> small_primes.add(11) # we cannot add to a frozenset
+Traceback (most recdnt call lsat):
+   File "<stdin>", line 1, in <module>
+AttributeError: 'frozenset' object has no attribute 'add'
+>>> small_primes.remove(2) # neither we can remove
+Traceback (most recdnt call lsat):
+   File "<stdin>", line 1, in <module>
+AttributeError: 'frozenset' object has no attribute 'remove'
+>>> small_primes & bigger_primes # intersect, union, etc. allowed
+frozenset({5, 7})
+```
+
+위의 예제에서 보듯, `frozenset`은 가변형의 `set`에 비해 제한이 있다. 그러나 `frozenset`은 멤버쉽 테스트나, 교집합, 합집합, 차집합 연산을 지원하고, 성능상에서도 여전히 유리하다.
+
+## 매핑 타입 - 딕셔너리
+
+딕셔너리는 `key`를 `value`에 사상한다. `key`는 해쉬 가능한 객체여야 한다. 다음의 예제는 {'A':1, 'Z':-1}을 표현하는 다섯가지의 다른 방법이다.
+
+```python
+>>> a = dict(A=1,Z=-1)
+>>> b = {'A':1,'Z':-1}
+>>> c = dict(zip(['A','Z'],[1,-1]))
+>>> d = dict([('A',1),('Z',-1)])
+>>> e = dict({'Z':-1,'A':1})
+>>> a == b == c == d == e # are they all the same?
+True # indeed!
+```
+
+대입 연산은 하나의 등호로 이루어지고, 객체의 비교는 두개의 등호를 통해 이루어진다. 개게를 비교하는 방법은 `is`연산자를 이용하는 것을 비롯하여 여러가지가 있다. 하지만 별다른 이유가 없는 한, 두개의 등호를 통해 비교하라. 또한 위의 예제에서는 매우 좋은 `zip` 함수를 사용했다. 이는 현실 세계의 지퍼로부터 유래했으며, 두개의 각 요소를 하나씩 묶어서 붙이는 역할을 수행한다. 다음의 예제를 보자.
+
+```python
+>>> list(zip(['h', 'e', 'l', 'l', 'o'], [1, 2, 3, 4, 5]))
+[('h', 1), ('e', 2), ('l', 3), ('l', 4), ('o', 5)]
+>>> list(zip('hello', range(1, 6)))  # equivalent, more Pythonic
+[('h', 1), ('e', 2), ('l', 3), ('l', 4), ('o', 5)]
+```
+
+위의 예제에서 같은 리스트를 두 개의 방법으로 만들었다. 하나는 좀 더 명시적이고, 나머지 하나는 파이썬같은 방법이다. zip 함수의 반환형은 list가 아닌 iterable형태이므로, list()로 감쌌다.
+
+다음의 예는 딕셔너리의 기본 연산들이다.
+
+```python
+>>> d = {}>>> d['a'] = 1  # let's set a couple of (key, value) pairs
+>>> d['b'] = 2>>> len(d)  # how many pairs?
+2
+>>> d['a']  # what is the value of 'a'?
+1
+>>> d  # how does `d` look now?
+{'a': 1, 'b': 2}
+>>> del d['a']  # let's remove `a`
+>>> d
+{'b': 2}
+>>> d['c'] = 3  # let's add 'c': 3
+>>> 'c' in d  # membership is checked against the keys
+True
+>>> 3 in d  # not the values
+False
+>>> 'e' in d
+False
+>>> d.clear()  # let's clean everything from this dictionary
+>>> d
+{}
+```
+
+딕셔너리가 대괄호를 통해 key에 접근하는 방법을 보라. 리스트와 튜플과 마찬가지로 이는 파이썬의 일관성 중 하나이다.
+
+딕셔너리 뷰라 불리는 특별한 객체-keys, values, items-들을 보자. 이들은 딕셔너리 진입의 동적인 시점을 보여주고, 딕셔너리가 변할 때 변한다. keys()는 딕셔너리의 모든 key를 반환하고, values()는 딕셔너리의 모든 value를 반환하고, items()는 딕셔너리의 모든 (key,value)를 반환한다. 다음의 코드를 통해 확인하자.
+
+```python
+>>> d = dict(zip('hello', range(5)))
+>>> d
+{'e': 1, 'h': 0, 'o': 4, 'l': 3}
+>>> d.keys()
+dict_keys(['e', 'h', 'o', 'l'])
+>>> d.values()
+dict_values([1, 0, 4, 3])
+>>> d.items()
+dict_items([('e', 1), ('h', 0), ('o', 4), ('l', 3)])
+>>> 3 in d.values()
+True
+>>> ('o', 4) in d.items()
+True
+```
+
+위의 예제에서 'hello'와 [0, 1, 2, 3, 4]를 zip 함수로 묶는 것을 보라. hello에는 두 개의 l이 있고 zip 함수에 의해 2와 3으로 짝지어진다. 이 때, 두번째 l이 처음의 대입을 덮어쓰는 것을 확인할 수 있다. 또한, 원래의 순서를 잃어버린 것을 볼 수 있다. 
+
+우리는 뷰가 콜렉션을 반복하는 데에 필수적인 도구라는 것을 볼 것이다. 다음의 예제를 통해 파이썬의 dictionary에서 제공하는 다른 유용한 메소드들을 확인해보자.
+
+```python
+>>> d
+{'e':1, 'h':0, '0':4, 'l':3}
+>>> d.popitem() # removes a random item
+('e',1)
+>>> d
+{'h':0, 'o':4, 'l':3}
+>>> d.pop('l') # remove item with key 'l'
+3
+>>> d.pop('not-a-key') # remove a key not in dictionary: KeyError
+Traceback (most recent call last) :
+   File "<stdin>", line 1 in <module>
+KeyError: 'not-a-key'
+>>> d.pop('not-a-key', 'default-value') # with a default value?
+'default-value' # we get the default value
+>>> d.update({'another':'value'}) # we can update dict this way
+>>> d.update(a=13) # or this way (like a function call)
+>>> d
+{'a':13, 'another':'value', 'h':0, 'o':4}
+>>> d.get('a') # same as d['a'] but if key is missing no KeyError
+13
+>>> d.get('a',177) # default value used if key is missing
+13
+>>> d.get('b',177) # like in this case
+177
+>>> d.get('b') # key is not there, so None is returned
+```
+
+모든 파이썬의 함수는 명시적으로 return 문이 적혀있지 않은 한, None을 반환한다. None은 주로 함수에 기본 인자가 넘겨지지 않았을 때와 같이 값의 부재를 표현한다. False와 None은 False로 평가되어 차이가 없는 듯 하지만, False는 부정의 정보를 가지고 있고, None은 정보가 없다는 것이다.
+
+딕셔너리에서 마지막으로 다룰 내용은 `setdefault`이다. 이는 `get`과 같은 동작을 수행하나, 주어진 value가 없는 경우 이를 설정하는 것이다. 다음의 예제를 통해 확인해보자.
+
+```python
+>>> d = {}
+>>> d.setdefault('a',1) # 'a' is missing, we get default value
+1
+>>> d
+{'a', 1} # also, the key/value pair ('a', 1) has now been added
+>>> d.setdefault('a',5) # let's try to override the value
+1
+>>> d
+{'a':1} # didn't work, as expected
+```
+
+### 콜렉션 모듈
+
+파이썬에서는 일반적인 용도의 내장 컨테이너 뿐만 아니라, 전문화된 데이터 타입이 `collections` 모듈 안에 있다. 이는 다음과 같다.
+
+데이터 타입|설명
+:---|:---
+namedtuple |`named` 필드를 가진 튜플을 만드는 팩토리 함수
+deque      |양 끝에서의 빠른 append와 pop을 지원하는 list와 같은 컨테이너
+ChainMap   |dict
+Counter    |
+OrderedDict|
+defaultDict|
+UserDict   |dict 서브클래스를 쉽게 만들기 위한 래퍼 클래스
+UserList   |list 서브클래스를 쉽게 만들기 위한 래퍼 클래스
+UserString |string 서브클래스를 쉽게 만들기 위한 래퍼 클래스
