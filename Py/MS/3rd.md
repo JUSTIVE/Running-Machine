@@ -35,6 +35,7 @@ else:
 ### 전문화된 else : elif
 
 가끔은 if 하나만 필요할 수 도 있지만, 다른 때는 두 가지 이상의 분기를 다뤄야 할 때가 있다. 다음의 코드를 보자.
+
 ```python
 # taxes.py
 income = 15000
@@ -196,3 +197,87 @@ for person, age in zip(people,ages):
 훨씬 낫지 않은가!
 
 ### while 반복문
+
+앞의 단원에서는 for 문의 사용법을 배웠다. 여기서 중요한 점은, for 문은 유한한 개수의 원소들을 반복할 때에만 끝내주기 때문에 어떤 반복 구조를 이용할 지 결정해야 한다는 것이다.
+
+루프가 특정 조건이 만족되거나, 프로그램이 종료되지 전까지 진행되어야 하는 것처럼 for문이 필요한 때와 다른 상황이 올 수도 있다. 순회해야 할 대상이 없는 경우, for문은 매우 안좋은 선택이 될 것이다. 그러나 두려워마라, 이런 경우를 위해 파이썬은 `while` 반복문을 제공한다.
+
+`while`문은 몸체 안의 명령문들을 실행하면서 반복한다는 점에서 `for`문과 유사하지만, `while`문은 시퀀스를 따라 반복하지 않는다(할 순 있는데 하지 마라 제발). 대신, 조건을 만족하는 한 반복한다. 조건을 만족하는 경우, 반복을 멈춘다.
+
+평소와 같이, 예제를 통해 확인해보자. 우리는 양수의 이진 표현법을 확인하려 한다. 그러기 위해서, 우리는 주어진 숫자를 2로 나누고, 나머지를 모은 후 리스트의 역순을 출력해야 한다.
+
+```python
+# binary.py
+remainders = []
+while n > 0:
+    remainder = n % 2 # remainder of division by 2
+    remainders.append(remainder) # we keep track of remainders
+    n//=2 # we devide n by 2
+
+# reassign the list to its reversed copy and print it
+remainders = remainders[::-1]
+print(remainders)
+```
+
+위의 코드에서, 리스트를 역순으로 가져오는 부분을 주목하라. 위의 코드는 파이썬에서의 `divmod` 함수를 이용해 조금 더 줄일 수 있다. `divmod`는 (나머지,몫)의 튜플을 반환한다.
+
+```python
+# binary.2.py
+n = 39
+remainders = []
+while n > 0:
+    n, remainder = divmod(n,2)
+    remainders.append(remainder)
+
+# reassign the list to its reversed copy and print it
+remainders = remainders[::-1]
+print(remainders)
+```
+
+위의 코드에서 우리는 n을 2로 나누고, 나머지를 받아오는 과정을 한 줄에서 해결했다.
+
+위의 while반복문의 조건이 루프를 계속할 조건임을 확인하라. 이의 평가값이 `True`인 경우, `False`가 될 때까지 몸체가 실행되며, 이후에는 몸체를 즉시 탈출한다.
+
+만약 조건이 절대 `False`로 평가되지 않는다면, 이 루프는 무한 루프라 불리게 된다.
+
+### break 문과 continue 문
+
+~~c 언어와 동일~~
+
+## itertools 모듈 개요
+
+### 무한 반복자
+
+무한 반복자는 `for`문을 `while`문처럼 사용할 수 있게 한다.
+
+```python
+# infinite.py
+from itertools import count
+for n in count(5,3):
+    if n > 20:
+        break
+    print(n,end=", ")
+```
+
+`count` 팩토리 클래스는 계속 반복하는 반복자를 만든다. 위의 예제에서는 5부터 시작하여 계속 3을 더할 것이다. 무한반복을 원치 않는다면 수동으로 `break`를 지정해야 한다.
+
+### 조합 생성기
+
+예를 들어, ABC의 순열은 다음의 6개이다.
+
+- ABC
+- ACB
+- BAC
+- BCA
+- CAB
+- CBA
+
+만약 N개의 원소가 있다면, 이들의 순열은 총 N!이다. 이를 파이썬에서 해보자.
+
+```python
+# permutations.py
+from itertools import permutations
+print(list(permutations('ABC')))
+
+[('A', 'B', 'C'), ('A', 'C', 'B'), ('B', 'A', 'C'), ('B', 'C', 'A'), ('C', 'A', 'B'), ('C', 'B', 'A')]
+```

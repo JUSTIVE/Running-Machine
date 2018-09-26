@@ -552,7 +552,7 @@ True
 True
 ```
 
-위의 예제에서 'hello'와 [0, 1, 2, 3, 4]를 zip 함수로 묶는 것을 보라. hello에는 두 개의 l이 있고 zip 함수에 의해 2와 3으로 짝지어진다. 이 때, 두번째 l이 처음의 대입을 덮어쓰는 것을 확인할 수 있다. 또한, 원래의 순서를 잃어버린 것을 볼 수 있다. 
+위의 예제에서 'hello'와 [0, 1, 2, 3, 4]를 zip 함수로 묶는 것을 보라. hello에는 두 개의 l이 있고 zip 함수에 의해 2와 3으로 짝지어진다. 이 때, 두번째 l이 처음의 대입을 덮어쓰는 것을 확인할 수 있다. 또한, 원래의 순서를 잃어버린 것을 볼 수 있다.
 
 우리는 뷰가 콜렉션을 반복하는 데에 필수적인 도구라는 것을 볼 것이다. 다음의 예제를 통해 파이썬의 dictionary에서 제공하는 다른 유용한 메소드들을 확인해보자.
 
@@ -609,9 +609,9 @@ KeyError: 'not-a-key'
 namedtuple |`named` 필드를 가진 튜플을 만드는 팩토리 함수
 deque      |양 끝에서의 빠른 append와 pop을 지원하는 list와 같은 컨테이너
 ChainMap   |dict
-Counter    |
-OrderedDict|
-defaultDict|
+Counter    |해쉬 가능한 객체를 세기 위한 dict 서브클래스
+OrderedDict|원소가 삽입된 순서를 기억하는 dict 서브클래스
+defaultDict|없는 value값을 기본으로 채우는 팩토리 메소드를 호출하는 dict 서브클래스
 UserDict   |dict 서브클래스를 쉽게 만들기 위한 래퍼 클래스
 UserList   |list 서브클래스를 쉽게 만들기 위한 래퍼 클래스
 UserString |string 서브클래스를 쉽게 만들기 위한 래퍼 클래스
