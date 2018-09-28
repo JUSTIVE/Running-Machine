@@ -57,11 +57,11 @@ core는 핵심로직, run은 시작로직 utill은 유틸도구
  
  여러줄에 걸쳐 정의하기에 >>>에서 ...로 교체.
 
- >>> employee = { 
-     ...     'age': 45, 
-     ...     'role': 'CTO', 
-     ...     'SSN': 'AB1234567', 
-     ... } 
+>>> employee = { 
+...     'age': 45, 
+...     'role': 'CTO', 
+...     'SSN': 'AB1234567', 
+... } 
 
      파이썬이 네임스페이스를 검색하는 순서:
      local, enclosing, global, built-in (LEGB).
@@ -109,7 +109,8 @@ pythonic이라는 개념?
 
 >>> c = 3.14 + 2.73j 
 >>> c.real  # real part 
-3.14 >>> c.imag  # imaginary part 
+3.14 
+>>> c.imag  # imaginary part 
 2.73
 >>> c.conjugate()  # conjugate of A + Bj is A - Bj 
 (3.14-2.73j) 
@@ -152,7 +153,7 @@ Fraction(1, 1)
 
   문자열 리터럴은 ','' 혹은 '''로 사용. 3중따옴표의 경우,
   문자열이 여러줄에 걸쳐져 있을 수 있다
-  >>> # 4 ways to make a string 
+ 
   >>> str1 = 'This is a string. We built it with single quotes.'
   >>> str2 = "This is also a string, but built with double quotes."
   >>> str3 = '''This is built using triple quotes, 
@@ -351,7 +352,6 @@ bytearray(b'')
 bytearray(b'\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00') 
 >>> bytearray(range(5))  # bytearray from iterable of integers 
 bytearray(b'\x00\x01\x02\x03\x04')
-
 >>> name = bytearray(b'Lina')  # A - bytearray from bytes 
 >>> name.replace(b'L', b'l') 
 bytearray(b'lina') 
@@ -584,7 +584,6 @@ UserString 문자열 서브클래싱을 위한 래퍼.
 8.8
 
 
-
 >>> from collections import namedtuple
 >>> Vision = namedtuple('Vision', ['left', 'right'])
 >>> vision = Vision(9.5, 8.8)
@@ -685,12 +684,13 @@ id를 사용할때 작은값은 주의하자.
 >>> a[-3] #equivalent to lea(a) -3
 7
 
-
-#h1 lterating and Making Decisions
+#h2  4과
+ 
+#h3 lterating and Making Decisions
 
 흐름 제어를 위해서는 분기와 루핑이 있다.
 
-#h2 conditional pro
+#h3 conditional pro
 
 조건부 프로그래밍 or 브랜칭
 
@@ -723,6 +723,7 @@ for person, age in zip(people, ages):
 remainders = remainders[::-1] #인덱스를 역순으로 바꿔버림.
 
 raise 기능이 뭔지 알자.
+
 count 클래스는 계산을 계속할 반복자를 만듭니다.
 
 itertools lib count.
@@ -751,3 +752,334 @@ print(odd_numbers)
 
 from itertools import permutations
 print(list(permutations('ABC')))
+
+
+#h2 4장 
+
+파이썬은 반환 형식이 없어도 항상 무언가를 반환, 아무것도 안하면
+NONE이 반환.
+
+함수 존나좋음
+
+전역,지역
+
+nonlocal로 객체를 선언한다면 가장 인접한 바인딩까지 값 유지.(원래 내부함수를 벗어나면 사라지지만 외부함수까지 가능맨-글로벌 제외.)
+
+만약 로컬 내에서 global로 선언한다면 전역객체
+
+매개변수에 대해 중요한 3가지 사항
+
+1.인수 전달은 객체를 지역 변수 이름에 할당하는 것입니다.
+2.함수 내에서 인수 이름에 객체를 할당해도 호출자는 영향x
+3.함수에서 변경 가능한 객체 인수를 변경하면 호출자가 영향o
+
+5가지의 매개변수 입력방법이있음.
+
+포지셔널.
+
+왼쪽에서 오른쪽으로 넣기.
+>def func(a, b, c):    
+  print(a, b, c)
+func(1, 2, 3)  # prints: 1 2 3
+
+키드워 및 기본값.
+
+name=valur구문을 사용,키워듭려로 할당
+>def func(a, b, c):    
+    print(a, b, c)
+func(a=1, c=2, b=3)  # prints: 1 3 2
+
+
+>def func(a, b=4, c=88):    
+    print(a, b, c)
+func(1)              # prints: 1 4 88
+func(b=5, a=7, c=9)  # prints: 7 5 9
+func(42, c=9)        # prints: 42 4 9
+2가지 중요한점.
+
+우선, 위치 지정 매개 변수 왼쪽에 기본 인수를 지정할 수 없습니다.
+둘째, 예제에서 argument_name = value syntax를 사용하지 않고 인수가 전달되는 경우 목록의 첫 번째 인수 여야하며 항상 a에 할당됩니다.
+
+가변 위치.
+>def minimum(*n):
+    # print(n)  # n is a tuple
+    if n:  # explained after the code             mn = n[0]        
+        for value in n[1:]:            
+            if value < mn:                
+                mn = value        
+        print(mn)
+        
+minimum(1, 3, -7, 9)  # n = (1, 3, -7, 9) - prints: -7
+minimum()             # n = () - prints: nothing
+
+객체 이름 앞에 *를 붙이면 가변인수임.
+
+def func(*args):    
+    print(args)
+     
+values = (1, 3, -7, 9)
+func(values)   # equivalent to: func((1, 3, -7, 9))
+func(*values)  # equivalent to: func(1, 3, -7, 9)
+
+*VALUE로 하면 튜플을 언패킹함.
+
+가변 키워드
+
+*대신 **로 됨+ 사전에 수집.
+
+def func(**kwargs):    
+    print(kwargs)
+# All calls equivalent. They print: {'a': 1, 'b': 42}
+func(a=1, b=42)
+func(**{'a': 1, 'b': 42})
+func(**dict(a=1, b=42))
+
+def connect(**options):    
+    conn_params = {
+                'host': options.get('host', '127.0.0.1'),        'port': options.get('port', 5432),        'user': options.get('user', ''),        'pwd': options.get('pwd', ''),
+    }
+    print(conn_params)    
+    # we then connect to the db (commented out)    
+    # db.connect(**conn_params)
+connect()
+connect(host='127.0.0.42', port=5433)
+connect(port=5431, user='fab', pwd='gandalf')
+
+위의 예제를 보면 알겠지만 사전 매개변수가 들어가면 기존의 값을 덮기 가능.
+
+
+키워드 온리
+
+가변위치 인수 뒤 혹은 맨뒤에 *로 사용.
+
+def kwo(*a, c):    
+    print(a, c)kwo(1, 2, 3, c=7)  # prints: (1, 2, 3) 7
+kwo(c=4)           # prints: () 4
+(#) kwo(1, 2)  # breaks, invalid syntax, with the following error
+(#) TypeError: kwo() missing 1 required keyword-only argument: 'c'
+def kwo2(a, b=42, *, c):    
+    print(a, b, c)
+kwo2(3, b=7, c=99)  # prints: 3 7 99
+kwo2(3, c=13)       # prints: 3 42 13
+(#) kwo2(3, 23)  # breaks, invalid syntax, with the following error# TypeError: kwo2() missing 1 required keyword-only argument: 'c'
+
+
+
+결합 입력 인수
+
+다음의 규칙을 따르면 매개변수를 결합가능하다.
+• 함수를 정의 할 때는 일반적인 위치 인수가 먼저오고 그 다음 기본 인수 (name = value), 변수 위치 인수 (* name 또는 간단히 *), 키워드 만있는 인수
+
+(이름 또는 이름 = 값 형식이 좋음), 그리고 임의의 가변 키워드 인수 (** 이름).
+
+• 함수를 호출 할 때 인수는 먼저 위치 인수 (값), 키워드 인수 (name = value), 가변 위치 인수 (* name), 변수 keyword 인수 (** 이름).
+
+def func(a, b, c=7, *args, **kwargs):
+    print('a, b, c:', a, b, c)
+    print('args:', args)
+    print('kwargs:', kwargs)
+    
+func(1, 2, 3, *(5, 7, 9), **{'A': 'a', 'B': 'b'})
+func(1, 2, 3, 5, 7, 9, A='a', B='b')  # same as previous one
+
+
+def func_with_kwonly(a, b=42, *args, c, d=256, **kwargs):
+    print('a, b:', a, b)
+    print('c, d:', c, d)
+    print('args:', args)
+    print('kwargs:', kwargs)
+    # both calls equivalent
+func_with_kwonly(3, 42, c=0, d=1, *(7, 9, 11), e='E', f='F')
+func_with_kwonly(3, 42, *(7, 9, 11), c=0, d=1, e='E', f='F')
+
+#h2 함정을 피해라, 변경가능기본값
+
+디폴트 값이 Deftime에 생성된다는 것이다. 
+
+따라서 동일한 기능에 대한 후속 호출은 해당 기본값의 변동에 따라 다르게 동작할 수 있다
+
+def func(a=[], b={}):
+    print(a)
+    print(b)
+    print('#' * 12)
+    a.append(len(a))  # this will affect a's default value    
+    b[len(a)] = len(a)  # and this will affect b's one
+func()
+func()
+func()
+
+
+#h2 리턴값
+
+파이썬은 여러개의 리턴값(튜플)을 반환가능.
+
+def func():
+    pass
+
+func()  # the return of this call won't be collected. It's lost.
+a = func()  # the return of this one instead is collected into `a`
+print(a)  # prints: None
+
+예제와 같이 반환값이 없으면 none을 호출 
+
+def factorial(n):
+    if n in (0, 1):
+        return 1    
+    result = n    
+    for k in range(2, n):        
+        result *= k
+    return result
+f5 = factorial(5)  # f5 = 120
+
+혹은
+from functools import reduce
+from operator import mul
+def factorial(n):    
+    return reduce(mul, range(1, n + 1), 1)
+f5 = factorial(5)  # f5 = 120
+
+#h2 반환 멀티값
+
+튜플을 명시적으로 혹은 암시적으로 사용하면 가능.
+
+def moddiv(a, b):
+    return a // b, a % b
+print(moddiv(20, 7))  # prints (2, 6)
+
+
+#h2 여러가지 유용한 팁.
+
+함수는 한가지를 해야한다.
+기능은 작아야한다.
+입력매개변수가 작으면 작을수록 좋다.
+함수는 반환값에서 일관성을 가져야한다.
+함수에는 부작용이 없어야한다, 즉 함수는 호출한 값에 영향을 미치지 않는다.
+
+#h2 회귀(재귀) 함수.
+
+def factorial(n):
+    if n in (0, 1):  # base case        
+        return 1    
+    return factorial(n - 1) * n
+print(factorial(5))
+
+
+#h2 불명 함수.(람다)
+
+이름이 필요없는 한줄짜리 코드함수.
+
+5의 배수코드를 그냥짰을때
+
+def is_multiple_of_five(n):    
+    return not n % 5
+def get_multiples_of_five(n):    
+    return list(filter(is_multiple_of_five, range(n)))
+print(get_multiples_of_five(50))
+
+람다
+
+def get_multiples_of_five(n):    
+    return list(filter(lambda k: not k % 5, range(n)))
+print(get_multiples_of_five(50))
+
+ func_name = lambda [parameter_list]: expression. A function object is returned, which is equivalent to this: def func_name([parameter_list]): return expression
+
+def adder(a, b):    
+    return a + b
+    # is equivalent to:
+adder_lambda = lambda a, b: a + b
+
+
+#h2 함수특징.
+
+함수 호출
+
+def multiplication(a, b=1):
+    """Return a multiplied by b. """    
+    return a * b
+special_attributes = [    "__doc__", "__name__", "__qualname__", "__module__",    "__defaults__", "__code__", "__globals__", "__dict__",    "__closure__", "__annotations__", "__kwdefaults__",]
+
+for attribute in special_attributes:
+    print(attribute, '->', getattr(multiplication, attribute))
+
+#h2 마지막문제
+
+#h2 니 코드 문서화
+def square(n):
+"""Return the square of a number n. """
+    return n ** 2
+def get_username(userid):
+    """Return the username of a user given their id. """
+    return db.get(user_id=userid).username??
+
+#객체 가져오기.
+
+가장 흔한 두가지 방법.
+import module_name and from module_name import function_name
+
+form import module_name은 module_name 모듈을 찾고 import 문이 실행되는 로컬 네임 스페이스에서 그 모듈의 이름을 정의합니다.
+
+from module_name import function_name 식별자의 형식은 그보다 조금 더 복잡하지만 기본적으로 동일한 작업을 수행합니다. module_name을 찾아 속성 (또는 서브 모듈)을 검색하고 식별자에 대한 참조를 로컬 이름 공간에 저장합니다.
+
+두 양식 모두 as절을 잉용 오브젝트 이름변경 가능
+from mymodule import myfunc as better_named_func
+
+라이브러리 예제
+
+import unittest  # imports the unittest module
+from math import sqrt  # imports one function from math
+from random import randint, sample  # two imports at once
+from mock import patch
+from nose.tools import (  # multiline import
+    assert_equal,    
+    assert_list_equal,
+    assert_not_in,
+)
+from karma import nt, utils
+??안되는걸 구버전꺼용인가
+
+
+프로젝트의 루트에서 파일 구조가 시작되면 도트 표기법을 사용하여 패키지, 모듈, 클래스, 함수 또는 현재 네임 스페이스로 가져올 개체로 가져올 수 있습니다. 다른 것.
+
+  from 모듈 가져 오기 구문을 사용하면 모듈의 모든 이름을 현재 네임 스페이스에 한 번에 가져 오는 데 사용되는 import * 모듈의 catch-all 절을 사용할 수도 있습니다.
+
+그러나 몇 가지 이유 때문에 눈살을 찌푸리게됩니다.
+
+공연, 다른 이름을 암묵적으로 가릴 위험 등이 있습니다.
+
+각 모듈의 코드를 보여주기 전에 파이썬에게 실제로 패키지라는 것을 알리기 위해서는 __init__.py 모듈을 넣어야합니다.
+
+예제
+
+funcdef.py
+
+    def square(n):    
+        return n ** 2
+    def cube(n):
+        return n ** 3
+        
+    
+위의 객체 모듈을 가져오는 두가지 형식
+
+func_import.py
+
+import lib.funcdef
+print(lib.funcdef.square(10))
+print(lib.funcdef.cube(10))
+
+func_from.py
+from lib.funcdef import square, cube
+print(square(10))
+print(cube(10))
+
+가져온 방법에따라  액세스 방법이 틀림
+
+#h2 relative imports
+
+우리가 지금까지 한 import는 절대적이지만-전체 경로 정의. 객체 경로 정의- 상대적으로 import(가져오는 방법)도 있다.
+
+상대적 수입은 우리가 찾고있는 것을 찾기 위해 역행해야 할 폴더의 수만큼 모듈 앞에 많은 점을 추가함으로써 이루어집니다.
+
+
+
+from .mymodule import myfunc
