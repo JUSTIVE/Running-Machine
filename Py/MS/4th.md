@@ -409,4 +409,4 @@ from module_name import identifier은 조금 복잡하지만 기본적으로는 
 from my_module import myfunc as better_named_func
 ```
 
-이는 상대경로도 됨 ^^ 
+이는 상대경로도 됨 ^^
