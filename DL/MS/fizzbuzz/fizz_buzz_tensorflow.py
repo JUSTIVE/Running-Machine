@@ -18,9 +18,9 @@ def binaryEncode(i, num_digits):
 
 def fizzBuzzEncode(i):
     """입력된 숫자를 one-hot encoding 된 fizzbuzz로 바꾸는 함수"""
-    if   not i % 15 :   return np.array([0,0,0,1])
-    elif not i % 5 :    return np.array([0,0,1,0])
-    elif not i % 3 :    return np.array([0,1,0,0])
+    if   i % 15 == 0 :  return np.array([0,0,0,1])
+    elif i % 5  == 0 :  return np.array([0,0,1,0])
+    elif i % 3  == 0 :  return np.array([0,1,0,0])
     else:               return np.array([1,0,0,0])
 
 # 트레이닝셋 설정
@@ -34,46 +34,29 @@ def initWeights(shape):
 # 본 뉴럴 네트워크의 모델
 def model(X,
     w_h,b_h,
-    w_h2,b_h2,
-    w_h3,b_h3,
-    w_h4,b_h4,
     w_o,b_o):
     h = tf.nn.relu(tf.matmul(X,w_h)+b_h)# 렐루 활성화 함수 (1*3) * (3*3)= (1*3)
-    h2 = tf.nn.relu(tf.matmul(h,w_h2)+b_h2)
-    h3 = tf.nn.relu(tf.matmul(h2,w_h3)+b_h3)
-    h4 = tf.nn.relu(tf.matmul(h3,w_h4)+b_h4)
-    return tf.matmul(h4,w_o)+b_o
+    return tf.matmul(h,w_o)
 
 
 # 입력 레이어 10차원을 설정
 X = tf.placeholder("float",[None, NUM_DIGITS])
 Y = tf.placeholder("float",[None,4])
 
-NUM_HIDDEN = 500
+actual = ['1','2','fizz','4','buzz','fizz','7','8','fizz','buzz','11','fizz','13','14','fizzbuzz','16','17','fizz','19','buzz','fizz','22','23','fizz','buzz','26','fizz','28','29','fizzbuzz','31','32','fizz','34','buzz','fizz','37','38','fizz','buzz','41','fizz','43','44','fizzbuzz','46','47','fizz','49','buzz','fizz','52','53','fizz','buzz','56','fizz','58','59','fizzbuzz','61','62','fizz','64','buzz','fizz','67','68','fizz','buzz','71','fizz','73','74','fizzbuzz','76','77','fizz','79','buzz','fizz','82','83','fizz','buzz','86','fizz','88','89','fizzbuzz','91','92','fizz','94','buzz','fizz','97','98','fizz','buzz']
+
+NUM_HIDDEN = 250
 w_h = initWeights([NUM_DIGITS,NUM_HIDDEN])#히든 레이어 설정 
 b_h = initWeights([NUM_HIDDEN])# 히든레이어 바이어스
-
-w_h2 = initWeights([NUM_HIDDEN,NUM_HIDDEN])
-b_h2 = initWeights([NUM_HIDDEN])
-
-w_h3 = initWeights([NUM_HIDDEN,NUM_HIDDEN])
-b_h3 = initWeights([NUM_HIDDEN])
-
-w_h4 = initWeights([NUM_HIDDEN,NUM_HIDDEN])
-b_h4 = initWeights([NUM_HIDDEN])
-
 w_o = initWeights([NUM_HIDDEN, 4])# 출력 레이어 설정
 b_o = initWeights([4])# 히든-히든레이어 설정
 
 py_x = model(X,
     w_h,b_h,
-    w_h2,b_h2,
-    w_h3,b_h3,
-    w_h4,b_h4,
     w_o,b_o)# 모델 인스턴스 생성
 
-cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits_v2(labels=py_x,logits=Y))
-train_op = tf.train.GradientDescentOptimizer(0.000001).minimize(cost)
+cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits_v2(labels=Y,logits=py_x))
+train_op = tf.train.GradientDescentOptimizer(0.5).minimize(cost)
 
 predict_op = tf.argmax(py_x,1)
 
@@ -97,7 +80,7 @@ class TestBinaryEncode(ut.TestCase):
 # if __name__ =='__main__':
 #     ut.main()
 
-BATCH_SIZE=128
+BATCH_SIZE=250
 
 with tf.Session() as sess:
     tf.global_variables_initializer().run()
@@ -115,7 +98,7 @@ with tf.Session() as sess:
             sess.run(train_op,feed_dict={X:trX[start:end],Y:trY[start:end]})
             
         #현재 epoch에서의 training 결과
-        print(epoch,'\t',"[","]",np.mean(np.argmax(trY,axis=1)==sess.run(predict_op,feed_dict={X:trX,Y:trY})))
+        print(epoch,'\t', np.mean(np.argmax(trY, axis=1) == sess.run(predict_op, feed_dict={X: trX, Y: trY})))
 
     # 트레이닝셋 이후의 테스트셋
     numbers = np.arange(1,101)
@@ -124,3 +107,6 @@ with tf.Session() as sess:
     output = np.vectorize(fizzBuzz)(numbers, teY)
 
     print(output)
+
+correct = [(x == y) for x, y in zip(actual, output)]
+print('correct',sum(correct))
