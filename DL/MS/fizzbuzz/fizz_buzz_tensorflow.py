@@ -6,6 +6,7 @@ import tensorflow as tf
 import unittest as ut # for unit-test(for the concept of Test-Driven Development)
 # from os import system # both modules are legacy of attempting carriage-return
 # import sys
+import matplotlib.pyplot as plt
 import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] ='2'
 
@@ -32,24 +33,27 @@ def initWeights(shape):
     return tf.Variable(tf.random_normal(shape,stddev=0.01))
 
 # 본 뉴럴 네트워크의 모델
-def model(X,
-    w_h,w_h2,
+def model(X,b_h,
+    w_h,w_h2,w_h3,
     w_o,):
     h = tf.nn.relu(tf.matmul(X,w_h))# 렐루 활성화 함수 (1*3) * (3*3)= (1*3)
     h2 = tf.nn.relu(tf.matmul(h,w_h2))
-    return tf.matmul(h2,w_o)
+    h3 = tf.nn.relu(tf.matmul(h2,w_h3))
+    return tf.matmul(h3,w_o)
 
 # 입력 레이어 10차원을 설정
 X = tf.placeholder("float",[None, NUM_DIGITS])
 Y = tf.placeholder("float",[None,4])
 
-NUM_HIDDEN = 500
+NUM_HIDDEN = 200
+b_h=initWeights([NUM_HIDDEN])
 w_h = initWeights([NUM_DIGITS,NUM_HIDDEN])#히든 레이어 설정 
 w_h2 = initWeights([NUM_HIDDEN,NUM_HIDDEN])#히든 레이어 설정 
+w_h3 = initWeights([NUM_HIDDEN,NUM_HIDDEN])#히든 레이어 설정 
 w_o = initWeights([NUM_HIDDEN, 4])# 출력 레이어 설정
 
-py_x = model(X,
-    w_h,w_h2,
+py_x = model(X,b_h,
+    w_h,w_h2,w_h3,
     w_o)# 모델 인스턴스 생성
 
 cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits_v2(labels=Y,logits=py_x))
@@ -78,11 +82,14 @@ class TestBinaryEncode(ut.TestCase):
 #     ut.main()
 
 BATCH_SIZE=250
+TRAIN_SIZE = 2000
+epoch_data=[]
+acc_data=[]
 
 with tf.Session() as sess:
     tf.global_variables_initializer().run()
 
-    for epoch in range(10000):
+    for epoch in range(TRAIN_SIZE):
         #트레이닝 데이터셋에서 임의의 인덱스를 뽑음
         p = np.random.permutation(range(len(trX)))
         #해당 인덱스 번째의 데이터셋
@@ -95,7 +102,9 @@ with tf.Session() as sess:
             sess.run(train_op,feed_dict={X:trX[start:end],Y:trY[start:end]})
             
         #현재 epoch에서의 training 결과
-        print(epoch,'\t', np.mean(np.argmax(trY, axis=1) == sess.run(predict_op, feed_dict={X: trX, Y: trY})))
+        epoch_data.append(epoch)
+        acc_data.append(np.mean(np.argmax(trY, axis=1) == sess.run(predict_op, feed_dict={X: trX, Y: trY})))
+        print(epoch,'\t', acc_data[-1])
 
     # 트레이닝셋 이후의 테스트셋
     numbers = np.arange(1,101)
@@ -108,3 +117,7 @@ with tf.Session() as sess:
 actual = ['1','2','fizz','4','buzz','fizz','7','8','fizz','buzz','11','fizz','13','14','fizzbuzz','16','17','fizz','19','buzz','fizz','22','23','fizz','buzz','26','fizz','28','29','fizzbuzz','31','32','fizz','34','buzz','fizz','37','38','fizz','buzz','41','fizz','43','44','fizzbuzz','46','47','fizz','49','buzz','fizz','52','53','fizz','buzz','56','fizz','58','59','fizzbuzz','61','62','fizz','64','buzz','fizz','67','68','fizz','buzz','71','fizz','73','74','fizzbuzz','76','77','fizz','79','buzz','fizz','82','83','fizz','buzz','86','fizz','88','89','fizzbuzz','91','92','fizz','94','buzz','fizz','97','98','fizz','buzz']
 correct = [(x == y) for x, y in zip(actual, output)]
 print('correct',sum(correct))
+
+plt.plot(epoch_data,acc_data,'ro')
+plt.axis([0, TRAIN_SIZE, 0, 1])
+plt.show()
