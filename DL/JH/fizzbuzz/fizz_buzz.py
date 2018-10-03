@@ -52,7 +52,7 @@ py_x = model(X, w_h, w_h2, w_o)
 
 # We'll train our model by minimizing a cost function.
 cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits_v2(logits=py_x, labels=Y))
-train_op = tf.train.GradientDescentOptimizer(0.05).minimize(cost)
+train_op = tf.train.GradientDescentOptimizer(0.01).minimize(cost)
 
 # And we'll make predictions by ch-oosing the largest output.
 predict_op = tf.argmax(py_x, 1)
