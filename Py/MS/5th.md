@@ -186,4 +186,101 @@ from string import ascii_lowercase
 lettermap = dict((c,k) for k, c in enumerate(ascii_lowercase,1))
 ```
 
-위의 코드는 dict 생성자를 
+위의 코드는 dict 생성자에 comprehension을 넣는 모습이다. 이를 dict comprehension으로 표현하면 짜잔!
+
+```python
+lettermap = {c:k for k, c in enumerate(ascii_lowercase,1)}
+```
+
+dictionary는 중복된 키를 지원하지 않는다. 이는 다음의 예제를 통해 확인 할 수 있다.
+
+```python
+# dictionary.comprehension.duplicates.py
+word = 'Hello'
+swaps = {c:c.swapcase() for c in word}
+print(swaps) # prints: {'o': 'O', 'l': 'L', 'e': 'E', 'H': 'h'}
+```
+
+위의 예제에서 l이 하나밖에 없다는 것을 보라.
+
+### set comprehension
+
+set comprehension은 list와 dictionary의 그것과 매우 유사하다. 파이썬은 set() 생성자와 명시적 {} 문법을 지원한다. 다음의 예를 보라.
+
+```python
+# set. comprehension.py
+word = 'Hello'
+letters = set(c for c in word)
+letters2 = {c for c in word}
+print(letters1)  # prints: {'l', 'o', 'H', 'e'}
+print(letters1 == letters2)  # prints: True
+```
+
+set comprehension이 dictionary와 마찬가지로 중복을 허용하지 않는 대신 4개의 아이템만을 가지는 것을 보라.
+
+## 발생자
+
+`발생자`는 파이썬이 우리에게 주는 매우 강력한 도구이다. 이들은 iteration의 개념에 기반하였으며, 효율적이고 아름다운 코드 패턴을 가능하게 한다.  
+발생자는 다음의 두 종류가 있다.
+
+- Generator functions: 이들은 일반 함수와 비슷하나, return 문을 통해 반환하는 것이 아니라,  호출마다 멈추고 재시작 할 수 있게 하는 `yield`키워드를 이용한다.
+- Generator expressions: 이들은 list comprehension과 유사하나, 리스트를 반환하는 것이 아닌, 각각의 결과를 하나하나 반환한다.
+
+### Generator functions
+
+아몰랑 다음의 예제를 보자.
+
+```python
+# first.n.squares.py
+def get_squares(n): # classic function approach
+    return [x**2 for x in range(n)]
+print(get_squares(10))
+
+def get_squares_gen(n): # generator approach
+    for x in range(n):
+        yield x ** 2 # we yield, we don't return
+print(list(get_squares_gen(10)))
+```
+
+인터프리터가 yield에 도달할 때마다, 실행이 중지된다. 두 실행 결과가 같은 이유는 get_squares_gen()함수가 list의 생성자에 들어갔기 때문이고, 이는 StopIteration이 발동할 때까지 모든 발생자를 소진하기 때문이다. 자세히 보자.
+
+```python
+# first.n.squares.manual.py
+def get_squares_gen(n):
+    for x in range(n):
+        yield x**2
+squares = get_squares_gen(4)
+print(squares)
+print(next(squares)) 0
+print(next(squares)) 1
+print(next(squares)) 4
+print(next(squares)) 9
+
+print(next(squares)) 16
+```
+
+이 시점에서 왜 발생자 함수를 일반 함수 대신 써야 하는지 궁금할 것이다. 10개의 원소의 조합을 구하는 문제는 n!의 문제이기 때문에, n에 따른 조합의 수가 팩토리얼로 증가한다. 이 때, 일반 함수를 사용한다면, 모든 결과를 리스트에 담아 반환해야 하는데, 이 때, 메모리를 초과할 수 있으며, 수행하는 데에 매우 오랜 시간이 걸린다. 이 경우, 발생자 함수를 이용하면, 메모리와 시간을 줄일 수 있다.
+
+또한 발생자 함수에 return 문을 사용할 수 있다는 점도 주목할만 하다. 이는 StopIteration 예외를 발생할 것이며, 반복을 효율적으로 멈출 수 있다. 다음의 예제를 보자.
+
+```python
+def geometric_progression(a,q):
+    k=0
+    while True:
+        return = a * q ** k
+        if result <= 10000:
+            yield result
+        else:
+            return
+        k+=1
+for n in geometric_progression(2,5):
+    print(n)
+```
+
+#### 더 나아가기
+
+우리가 next(generator)를 호출할 때, 우리는 generator.__next__() 메소드를 호출하는 것이다.
+
+#### yield 표현
+
+위에서의 또 다른 흥미로운 구조는 yield from 표현이다. 이 표현은 부 반복자에서 값을 받아올 수 있게 한다.
