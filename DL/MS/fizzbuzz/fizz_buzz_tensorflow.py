@@ -45,7 +45,7 @@ def model(X,b_h,
 X = tf.placeholder("float",[None, NUM_DIGITS])
 Y = tf.placeholder("float",[None,4])
 
-NUM_HIDDEN = 1000
+NUM_HIDDEN = 50
 b_h=initWeights([NUM_HIDDEN])
 w_h = initWeights([NUM_DIGITS,NUM_HIDDEN])#히든 레이어 설정 
 w_h2 = initWeights([NUM_HIDDEN,NUM_HIDDEN])#히든 레이어 설정 
@@ -82,7 +82,7 @@ class TestBinaryEncode(ut.TestCase):
 #     ut.main()
 
 BATCH_SIZE=250
-TRAIN_SIZE = 10000
+TRAIN_SIZE = 2000
 epoch_data=[]
 acc_data=[]
 
