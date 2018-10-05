@@ -283,4 +283,95 @@ for n in geometric_progression(2,5):
 
 #### yield 표현
 
-위에서의 또 다른 흥미로운 구조는 yield from 표현이다. 이 표현은 부 반복자에서 값을 받아올 수 있게 한다.
+위에서의 또 다른 흥미로운 구조는 `yield from` 표현이다. 이 표현은 부 반복자에서 값을 받아올 수 있게 한다. 다음의 예를 보자.
+
+```python
+# gen.yield.for.py
+def print_squares(start,end):
+    for n in range(start,end):
+        yield n**2
+
+for n in print_squares(2,5):
+    print(n)
+```
+
+위의 코드는 콘솔에 4,9,16을 출력할 것이다. 바깥의 for 문은 print_squares(2,5)에서 반복자를 받고, 반복이 끝날 때까지 next를 호출한다. 발생자가 호출이 될 떄마다 실행은 yield n **2 에서 중지된다. 이를 `yield from` 표현으로 이득을 보면 다음과 같다.
+
+```python
+# gen.yield.from.py
+def print_squares(start,end):
+    yield from (n**2 for n in range(start,end))
+
+for n in print_squares(2,5):
+    print(n)
+```
+
+위의 코드는 같은 결과를 보여주지만, yield from 은 부 반복자(n**2 ...)을 실행하는 것을 볼 수 있다. yield from 표현은 호출자에게 부반복자 결과값을 반환한다.
+
+### 발생자 표현
+
+이 문법은 list comprehension과 완벽히 똑같으나, comprehension을 대괄호로 붂는 대신, 소괄호로 묶는다.
+
+일반적으로, 발생자 표현은 list comprehension의 대체재와 같이 동작하나, 한 가지 반드시 알아두어야 할 것이 있다. 발생자 표현은 한번에 한 반복만 허용한다. 예를 보자.
+
+```python
+# generator.expressions.py
+>>> cubes = [k**3 for k in range(10)]# regular list
+>>> cubes
+[0,1,8,27, 64, 125, 216, 343, 512, 729]
+>>> type(cubes)
+<class 'list'>
+>>> cubes_gen = ( k** 3 for k in range(10)) # create as generator
+>>> cubes_gen
+<generator object <genexpr> at 0x7ff26b5db990>
+>>> type(cubes_gen)
+<class 'generator'>
+>>> list(cubes_gen) # this will exhaust the genereator
+[0,1,8,27, 64, 125, 216, 343, 512, 729]
+>>> list(cubes_gen) # nothing more to give
+[]
+```
+
+위의 코드에서 발생자의 값이 소진된 이후에는, 다시 원소들을 회복할 방법이 없으므로, 다시 객체를 생성하는 수밖에 없다.
+
+다음의 예제는 map과 reduce를 발생자 표현으로 재현한 것이다.
+
+```python
+# gen.map.py
+def adder(*n):
+    return sum(n)
+    s1 = sum(map(lambda n:adder(*n),zip(range(100),range(1,101))))
+    s2 = sum(adder(*n) for n in zip(range(100),range(1,101)))
+```
+
+위의 예제에서, s1과 s2는 완전히 같다. 이들은 adder(0,1),adder(1,2)...의 합이다. 이는 (1,3,5... )와 같다. 문법은 조금 다르지만 발생자 표현이 좀 더 이해가 잘 되는 코드를 발견했다:
+
+```python
+# gen.filter.py
+cubes = [x**3 for x in range(10)]
+odd_cubes1 = filter(lambda cube: cube%2,cubes)
+odd_cubes2 = (cube for cube in range if cube % 2)
+```
+
+## 성능을 고려한 것들
+
+성능에 있어서는 두가지 중요한 기준이 있다.
+
+- 공간: 자료구조의 메모리
+- 시간: 수행 시간
+
+공간에 있어 과연 정말 리스트나 튜플이 필요한지 고민하고, 왠만하면 발생자를 쓰라(함수도).
+
+시간은 좀 더 복잡한 문제인데, 모든 경우에 대해서 `X 가 Y 보다 항상 빠르다` 가 없기 때문이다. 하지만 파이썬에 대한 실험들의 결과는, `map`은 for 루프보다 2배 정도 빠르다는 것을 보장하고, list comprehension은 map 호출보다 더 빠를 수 있다.
+
+이러한 명제들을 완전히 받아들이기 위해서는 어떻게 파이썬이 작동하는 지에 대해 알아야 한다. map과 list comprehension은 interpreter에서 C 언어 속도로 작동하고, for loop는 파이썬 가상 머신에서 파이썬 바이트코드로 동작한다.
+
+### comprehension과 발생자를 남발하지 마라
+
+우리는 발생자 표현과 list comprehension이 얼마나 강력한지 보았다. 그건 사실인데, 코드의 복잡도가 지수적으로 증가한다.
+
+이에 대한 예로 피타고라스의 삼조를 들어보자. 피타고라스 삼조는 $a^2+b^2=c^2$를 만족하는 양수 $(a,b,c)$ 튜플이다. 
+우리는 앞에서 피타고라스 튜플을 구해봤지만 이는 매우 비효율적인 방법이다. 모든 가능한 쌍에서 조건을 만족하지 않는 쌍들을 걸러내었다.
+피타고라스 삼조를 구하는 더 나은 방법은 이들을 직접 생성하는 것이다. 이를 구하는 여러가지 방법은 많지만, 우리는 그 중 하나인 유클리드 공식을 이용할 것이다.
+
+이 공식은 양수 $m,n$에 대해서 $a=m^2-n^2$, $b=2mn$, $c=m^2+n^2$를 만족하는 (a,b,c)는 피타고라스 삼조를 만족한다는 것이다. 
