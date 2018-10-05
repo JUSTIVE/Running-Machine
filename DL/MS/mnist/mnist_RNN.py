@@ -22,12 +22,13 @@ n_class = 10
 
 # 신경망 모델 구성
 
-with tf.name_scope('layer'):
+with tf.name_scope('input_layer'):
     X = tf.placeholder(tf.float32, [None, n_step, n_input])#28* 28
+with tf.name_scope('output_layer'):
     Y = tf.placeholder(tf.float32, [None, n_class])#10
 
-    W = tf.Variable(tf.random_normal([n_hidden, n_class]))#128,10
-    b = tf.Variable(tf.random_normal([n_class]))
+W = tf.Variable(tf.random_normal([n_hidden, n_class]))#128,10
+b = tf.Variable(tf.random_normal([n_class]))
 
 # RNN 에 학습에 사용할 셀을 생성
 # 다음 함수들을 사용하면 다른 구조의 셀로 간단하게 변경
@@ -76,7 +77,7 @@ for epoch in range(total_epoch):
     tf.summary.merge_all()
     writer = tf.summary.FileWriter("./logs")
     writer.add_graph(sess.graph)
-    
+
     for i in range(total_batch):
         batch_xs, batch_ys = mnist.train.next_batch(batch_size)
         # X 데이터를 RNN 입력 데이터에 맞게 [batch_size, n_step, n_input] 형태로 변환합니다.
