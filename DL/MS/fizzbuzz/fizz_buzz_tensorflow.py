@@ -8,7 +8,7 @@ import unittest as ut # for unit-test(for the concept of Test-Driven Development
 # import sys
 import matplotlib.pyplot as plt
 import os
-os.environ['TF_CPP_MIN_LOG_LEVEL'] ='2'
+
 
 # 이진수의 자리를 10자리로 설정
 NUM_DIGITS = 10
@@ -39,13 +39,13 @@ def model(X,b_h,
     h = tf.nn.relu(tf.matmul(X,w_h))# 렐루 활성화 함수 (1*3) * (3*3)= (1*3)
     h2 = tf.nn.relu(tf.matmul(h,w_h2))
     # h3 = tf.nn.relu(tf.matmul(h2,w_h3))
-    return tf.matmul(h2,w_o)
+    return tf.matmul(h,w_o)
 
-# 입력 레이어 10차원을 설정
+# 입력 레이어 10차원을 설정 
 X = tf.placeholder("float",[None, NUM_DIGITS])
 Y = tf.placeholder("float",[None,4])
 
-NUM_HIDDEN = 50
+NUM_HIDDEN = 5000
 b_h=initWeights([NUM_HIDDEN])
 w_h = initWeights([NUM_DIGITS,NUM_HIDDEN])#히든 레이어 설정 
 w_h2 = initWeights([NUM_HIDDEN,NUM_HIDDEN])#히든 레이어 설정 
@@ -57,7 +57,7 @@ py_x = model(X,b_h,
     w_o)# 모델 인스턴스 생성
 
 cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits_v2(labels=Y,logits=py_x))
-train_op = tf.train.GradientDescentOptimizer(0.05).minimize(cost)
+train_op = tf.train.GradientDescentOptimizer(0.5).minimize(cost)
 
 predict_op = tf.argmax(py_x,1)
 
