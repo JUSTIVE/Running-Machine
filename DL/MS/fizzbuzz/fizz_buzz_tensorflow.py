@@ -37,7 +37,7 @@ def model(X,b_h,
     w_h,w_h2,w_h3,
     w_o,):
     h = tf.nn.relu(tf.matmul(X,w_h))# 렐루 활성화 함수 (1*3) * (3*3)= (1*3)
-    h2 = tf.nn.relu(tf.matmul(h,w_h2))
+    # h2 = tf.nn.relu(tf.matmul(h,w_h2))
     # h3 = tf.nn.relu(tf.matmul(h2,w_h3))
     return tf.matmul(h,w_o)
 
