@@ -57,25 +57,32 @@
 
 위의 이미지에서 파란색, 초록색, 빨간색으로 표시된 부분을 각각 `Input Image`, `Convolution Filter(혹은 Kernel)`, `Featured Map`이라 한다.
 
-위 이미지는 5x5 크기의 Input Image에 Filter를 한 칸씩 움직여 곱한 후 곱한 결과를 모두 더한 뒤 Featured Map을 구성하는 것을 볼 수 있다.  또한 Filter에 표시되는 값은 (해당 좌표의 값 * 필터의 가중치)이다. 이 예제에서는 X자 모양의 Feature를 검출하는 것으로 생각할 수 있다.
+위 이미지는 5x5 크기의 Input Image에 Filter를 한 칸씩 움직여 곱한 후 곱한 결과를 모두 더한 뒤 Featured Map을 구성하는 것을 볼 수 있다.
+또한 Filter에 표시되는 값은 (해당 좌표의 값 * 필터의 가중치)이다. 이 예제에서는 X자 모양의 Feature를 검출하는 것으로 생각할 수 있다.
 
 #### Stride
 
-이 예제에서 Filter는 한 칸씩 움직이는데 이 Filter 움직이는 정도를 `Stride`라 하며 위의 경우 `Stride = 1`이라 할 수 있다. Stride가 크게 움직인다면 그 만큼 계산량도 줄어드므로 Featured Map의 크기도 작아진다.
+이 예제에서 Filter는 한 칸씩 움직이는데 이 Filter 움직이는 정도를 `Stride`라 하며 위의 경우 `Stride = 1`이라 할 수 있다.
+Stride가 크게 움직인다면 그 만큼 계산량도 줄어드므로 Featured Map의 크기도 작아진다.
 
 아래는 위와 같은 Input Image와 Filter가 주어질 때 `Stride = 2`인 경우를 시각화한 이미지다.
 ![Convolutional Layer and Filter](./img/cnn/ConvLayerS2.gif)
 
 #### Padding
 
-지금 우리가 봐온 예제는 5x5 Input Image를 Filter를 거쳐 5x5보다 작은 Shrink된 Featured Map을 구성하는데, 만약 Input Image과 같은 크기의 Featured Map을 구성하고 싶다면 어떻게 해야할까?
+지금 우리가 봐온 예제는 5x5 Input Image를 Filter를 거쳐 5x5보다 작은 Shrink된 Featured Map을 구성하는데,
+만약 Input Image과 같은 크기의 Featured Map을 구성하고 싶다면 어떻게 해야할까?
 
-Filter를 1x1 크기로 구성하는건 Feature를 검출하지 못하므로 의미가 없다. 그래서 우리는 가장자리에 0 또는 임의의 값을 채워넣어 Input Image 크기를 늘리는 방식을 사용한다. 여기서 가장자리를 얼마나 두껍게 더 구성할지 정하는 값을 `Padding`이라 한다. 아래 이미지를 보자.
+Filter를 1x1 크기로 구성하는건 Feature를 검출하지 못하므로 의미가 없다.
+그래서 우리는 가장자리에 0 또는 임의의 값을 채워넣어 Input Image 크기를 늘리는 방식을 사용한다.
+여기서 가장자리를 얼마나 두껍게 더 구성할지 정하는 값을 `Padding`이라 한다. 아래 이미지를 보자.
 
 ![Convolutional Layer that Padded by one](./img/cnn/ConvLayerPadded.gif)
 
 ### Pooling Layer
-`Pooling`이란 Matrix의 가로/세로 크기를 축소시키는 연산을 말하며, Pooling Layer는 Pooling을 하는 Layer를 말한다. Pooling은 Filter와 같이 일정 크기의 Window(Matrix라 생각하자)를 덮고 그 중 Pooling 방식에 따라 최댓값 또는 평균값을 구하는데 일반적으로 Pooling Window의 크기와 Stride를 같은 값으로 설정하여 모든 원소가 계산에 한번씩만 참여하도록 설정한다.
+`Pooling`이란 Matrix의 가로/세로 크기를 축소시키는 연산을 말하며, Pooling Layer는 Pooling을 하는 Layer를 말한다.
+Pooling은 Filter와 같이 일정 크기의 Window(Matrix라 생각하자)를 덮고 그 중 Pooling 방식에 따라 최댓값 또는 평균값을 구하는데
+일반적으로 Pooling Window의 크기와 Stride를 같은 값으로 설정하여 모든 원소가 계산에 한번씩만 참여하도록 설정한다.
 
 Pooling 연산에는 `Max Pooling`과 `Avarage Pooling`이 있는데, 주로 Max Pooling을 사용한다. 
 
@@ -85,23 +92,26 @@ Max Pooling은 말 그대로 최대값을 사용하여 축소시키는 것이고
 
 ### Hyperparameters
 
-CNN 모델에서 하이퍼파라미터는 아래와 같다.
+CNN 모델에서 Hyperparameter는 아래와 같다.
  
  - **Filter Size**
    
-   일반적으로 3x3을 많이 사용한다. 왜냐하면 5x5 Filter는 3x3 Filter가 완벽히 대체 가능하기 때문인데 한번에 25번의 연산을 하는 것보다 9번의 연산을 여러번 하는 것이 더 효율적이기 때문이다.  
+   일반적으로 3x3을 많이 사용한다. 왜냐하면 5x5 Filter는 3x3 Filter가 완벽히 대체 가능하기 때문인데
+   한번에 25번의 연산을 하는 것보다 9번의 연산을 여러번 하는 것이 더 효율적이기 때문이다.  
    
 - **Filter Count**
 
-  Filter를 많이 거칠 수록 좋은 결과가 나온다. 하지만 너무 많은 Filter를 거친다면 Overfitting의 위험이 있으니 주의해야한다. 주로 2^n 꼴의 값(그 중에서도 32 <= x <= 1024)으로 Filter의 수를 정한다.
+  Filter를 많이 거칠 수록 좋은 결과가 나온다. 하지만 너무 많은 Filter를 거친다면 Overfitting의 위험이 있으니 주의해야한다.
+  주로 2^n 꼴의 값(그 중에서도 32 <= x <= 1024)으로 Filter의 수를 정한다.
   
 - **Stride, Padding**
   
   Stride와 Padding 역시 중요하다. Filter가 적절한 Featured Map을 구성 할 수 있도록 적절한 값의 Stride와 Padding을 찾는 것이 중요하다.
 
 
-CNN에서 하이퍼파라미터의 적정한 값은 아래 공식을 통해서 찾을 수 있다.
+Hyperparameter들의 적정한 값은 아래 공식을 통해서 찾을 수 있다.
 
 `Output Size = 1 + (Input Size - Filter Size) / Stride`
 
-단 위 공식을 사용하려면 Output Size가 정수여야 한다. 예를 들어 `Input Size = 7, Filter Size= 3, Stride = 3`이라면 결과는 `2.3333...` 이므로 Filter Size나 Stride를 조정해주어야 한다.
+단 위 공식을 사용하려면 Output Size가 정수여야 한다.
+예를 들어 `Input Size = 7, Filter Size= 3, Stride = 3`이라면 결과는 `2.3333...` 이므로 Filter Size나 Stride를 조정해주어야 한다.
