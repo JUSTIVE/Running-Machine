@@ -1,7 +1,6 @@
 
 
 # Convolutional Neural Network
-[[toc]]
 
 ## What is Convolutional Neural Network ?
 
@@ -43,9 +42,9 @@
 
 ## Structure
 
-`Input - [ Convolutional Layer - Pooling Layer(Optional) - ReLU ] - [ ... ] - Fully Conneced Layer - Softmax(Optional Maybe)`
+`Input - [ Convolutional Layer - Pooling Layer(Optional) - ReLU ] - [ ... ] - Fully Connected Layer - Softmax(Optional Maybe)`
 
-입력을 받고 `Convolutional Layer - Pooling Layer(Optional) - ReLU`구조를 적당한만큼 반복한 다음 `Fully-conncted Layer`를 통하여 Output을 산출함.
+입력을 받고 `Convolutional Layer - Pooling Layer(Optional) - ReLU`구조를 적당한만큼 반복한 다음 `Fully-connected Layer`를 통하여 Output을 산출함.
 
  
 ### Convolutional Layer
@@ -106,5 +105,3 @@ CNN에서 하이퍼파라미터의 적정한 값은 아래 공식을 통해서 �
 `Output Size = 1 + (Input Size - Filter Size) / Stride`
 
 단 위 공식을 사용하려면 Output Size가 정수여야 한다. 예를 들어 `Input Size = 7, Filter Size= 3, Stride = 3`이라면 결과는 `2.3333...` 이므로 Filter Size나 Stride를 조정해주어야 한다.
-
-
