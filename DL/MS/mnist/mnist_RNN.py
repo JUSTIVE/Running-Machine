@@ -8,8 +8,8 @@ mnist = input_data.read_data_sets("./mnist/data/", one_hot=True)#버전높으면
 # 옵션 설정
 
 learning_rate = 0.001
-total_epoch = 3
-batch_size = 128
+total_epoch = 50
+batch_size = 256
 
 # RNN 은 순서가 있는 자료를 다루므로,
 # 한 번에 입력받는 갯수와, 총 몇 단계로 이루어져있는 데이터를 받을지를 설정해야합니다.
@@ -106,5 +106,14 @@ test_batch_size = len(mnist.test.images)
 #데이터 대입
 test_xs = mnist.test.images.reshape(test_batch_size, n_step, n_input)
 test_ys = mnist.test.labels
-
 print('정확도:', sess.run(accuracy,feed_dict={X: test_xs, Y: test_ys}))
+
+#confusion = tf.confusion_matrix(labels = tf.argmax(test_ys,1),predictions = tf.argmax(model,1))
+confusion = tf.confusion_matrix(tf.argmax(test_ys, 1),tf.argmax(model, 1))
+
+test_confusion = sess.run(confusion, feed_dict={X: test_xs, Y: test_ys})
+print(test_confusion)
+
+
+
+
