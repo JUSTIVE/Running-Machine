@@ -18,8 +18,8 @@ def model(X, w_h, w_h2, w_o, p_keep_input, p_keep_hidden):
         return tf.matmul(h2, w_o)
 
 #Step 1 - Get Input Data
-trX, trY, teX, teY = mnist.train.images, mnist.train.labels, mnist.test.images, mnist.test.labels
 mnist = input_data.read_data_sets("MNIST_data/", one_hot=True)
+trX, trY, teX, teY = mnist.train.images, mnist.train.labels, mnist.test.images, mnist.test.labels
 
 #Step 2 - Create input and output placeholders for data
 X = tf.placeholder("float", [None, 784], name="X")
