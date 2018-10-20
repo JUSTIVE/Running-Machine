@@ -63,6 +63,7 @@
 Stride가 크게 움직인다면 그 만큼 계산량도 줄어드므로 Featured Map의 크기도 작아진다.
 
 아래는 위와 같은 Input Image와 Filter가 주어질 때 `Stride = 2`인 경우를 시각화한 이미지다.
+
 ![Convolutional Layer and Filter](./img/cnn/ConvLayerS2.gif)
 
 #### Padding
