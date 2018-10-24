@@ -89,6 +89,14 @@ Max Pooling은 말 그대로 최대값을 사용하여 축소시키는 것이고
 
 ![Pooling Layer](./img/cnn/PoolingLayer.png)
 
+### 3D Convolution
+
+위에서 본 이미지들은 이해를 돕기 위하여 1차원 데이터를 Convolution하는 예제 이미지를 사용했는데 실제 우리가 쓸 RGB채널을 가진 3D 데이터는 어떻게 처리하는지 보자.
+
+![Pooling Layer](./img/cnn/ConvLayer3D.png)
+
+위 이미지 역시 이해를 돕기 위한 이미지임을 기억하자. 필터는 R,G,B 채널마다 각 하나씩 있을수도, 1개 혹은 2개일수 있다. 
+
 ### Hyperparameters
 
 CNN 모델에서 Hyperparameter는 아래와 같다.
