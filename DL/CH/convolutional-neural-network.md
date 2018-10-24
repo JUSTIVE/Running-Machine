@@ -13,7 +13,7 @@
 
 ### DNN(Deep Neural Network)
 
-- DNN은 `Fully-connected layer(Dense Layer)`로만 구성되어있다.
+- DNN은 `Fully-connected layer(Dense Layer, Flatten Layer)`로만 구성되어있다.
 - Fully-connected Layer는 모든 데이터를 선형 뉴런으로 나열하여 1차원적인 데이터만 처리할 수 있음
 - 그런데 우리가 주로 사용하는 이미지는 3차원(R, G, B)
 - 이러한 모델에 우리가 사용하는 3차원인 이미지를 넣으면 1차원으로 변환하여 계산을 해야함
@@ -41,7 +41,7 @@
 
 `Input - [ Convolutional Layer - Pooling Layer(Optional) - ReLU ] - [ ... ] - Fully Connected Layer - Softmax(Optional Maybe)`
 
-입력을 받고 `Convolutional Layer - Pooling Layer(Optional) - ReLU`구조를 적당한만큼 반복한 다음 `Fully-connected Layer`를 통하여 Output을 산출함.
+입력을 받고 `Convolutional Layer - Pooling Layer(Optional) - ReLU`구조를 적당한만큼 반복한 다음 `Fully-connected Layer`를 거쳐 1차원적인 선형 데이터로 변환된 뒤 `Softmax` 함수를 거쳐 Output을 산출함.
 
 ### Convolutional Layer
 
@@ -55,7 +55,7 @@
 위의 이미지에서 파란색, 초록색, 빨간색으로 표시된 부분을 각각 `Input Image`, `Convolution Filter(혹은 Kernel)`, `Featured Map`이라 한다.
 
 위 이미지는 5x5 크기의 Input Image에 Filter를 한 칸씩 움직여 곱한 후 곱한 결과를 모두 더한 뒤 Featured Map을 구성하는 것을 볼 수 있다.
-또한 Filter에 표시되는 값은 (해당 좌표의 값 * 필터의 가중치)이다. 이 예제에서는 X자 모양의 Feature를 검출하는 것으로 생각할 수 있다.
+또한 Filter에 표시되는 값은 (**해당 좌표의 값 * 필터의 가중치**)이다. 이 예제에서는 X자 모양의 Feature를 검출하는 것으로 생각할 수 있다.
 
 #### Stride
 
