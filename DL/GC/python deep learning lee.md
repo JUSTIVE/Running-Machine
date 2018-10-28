@@ -124,7 +124,7 @@ f:space of featurees -> classes =( discreate values or real values)
 
 아래 그림과 같이 2 차원의 경우에는 사소한 것처럼 보일 수 있지만 수백 또는 수천 차원의 예제에서는 매우 복잡 할 수 있습니다.
 
-[선형회귀 1차]](C:\users\dlramcjf\Desktop\python\one plane.PNG)
+![선형회귀 1차]](C:\users\dlramcjf\Desktop\python\one plane)
 
 이후 장에서 분류 또는 회귀 문제의 몇 가지 예를 살펴보겠습니다. 
 
@@ -154,10 +154,9 @@ Clustering may work with any number of classes, and the idea behind clustering m
 
 --
 
+![유한집합 클러스터링](./deep_picture/limitcluster.PNG)
 
-[유한집합 클러스터링](C:\Users]dlrmacjf\Desktop\python\limit cluster.PNG)
-
-[무한집합 클러스터링](C:\Users\dlrmacjf\Desktop\python\unlimit cluster.PNG)
+![무한집합 클러스터링](./deep_picture/unlimitcluster.PNG)
 
 클러스터링만이 자율학습이 아니며, 우리는 딥러닝의 최근 성공이 그것이 자율학습 테스크에서 매우 효과적이게 되는 것과 관련이 있다는 것을 알게 될 것이다.
 
@@ -175,7 +174,7 @@ Clustering may work with any number of classes, and the idea behind clustering m
 
 이때 RBM이란.확률적으로 순환하는 신경망 네트워크이다.
 
-[볼츠만 머신](C:\Users\dlrmacjf\Desktop\python\Boltman.PNG)
+![볼츠만 머신](./deep_picture/Boltman.PNG)
 볼츠만 머신(Boltzmann machine)은 볼 수 있는 층(visible layer)과 숨겨진 층(hidden layer)의 두 층으로 구성된 그래픽 모델이다. 그런데 이 모델에서 각 볼 수 있는 유닛은 숨겨진 유닛들과만 연결되고, 볼 수 있는 유닛들 사이에 그리고 숨겨진 유닛들 사이에는 서로 연결이 없을 때 이를 제한된 볼츠만 머신(RBM: restricted Boltzmann machine)이라 한다
 
 **
@@ -212,7 +211,7 @@ Similar to how in playing chess sometimes sacrificing a pawn may be considered a
 
 --
 
-#h2 기계 학습 시스템에 관련된 단계
+## 기계 학습 시스템에 관련된 단계
 
 지금까지 우리는 서로 다른 기계 학습 접근 방식에 대해 논의했으며, 세 가지 다른 클래스로 대략 정리했습니다.
 
@@ -276,7 +275,7 @@ Similar to how in playing chess sometimes sacrificing a pawn may be considered a
 
 다시 말해, overfitting은 기계학습 알고리즘이 나무를 보지만 숲은 잊게 만드는 과정이다.
 
-[오버피팅](C:\Users\dlrmacjf\Desktop\python>overfitting.PNG)
+![오버피팅](./deep_picture/overfitting.PNG)
 
 
 테스트 데이터의 정확도가 교육 데이터에 대해 달성된 결과와 비슷하지 않다면 모델을 오버피딩했다는 것을 알 수 있습니다. 따라서 교육 데이터를 테스트 데이터와 구분합니다.
@@ -290,11 +289,11 @@ undefit=샘플 크기에 비해 매개 변수가 너무 적은 통계 모델을 
 
 +오버피팅보단 언더피팅이 낫다.
 
-[언더피팅](C:\Users\dlrmacjf\Desktop\python>underfitting.PNG)
+![언더피팅](./deep_picture/underfitting.PNG)
 
 ---
 
-#h2 인기있는 기술 / 알고리즘에 대한 간략한 설명
+## 인기있는 기술 / 알고리즘에 대한 간략한 설명
 
 "학습 스타일", 즉 책 초반에 논의 된 세 가지 수업, 감독 학습, 감독되지 않은 학습 및 강화 학습을 기반으로 알고리즘을 그룹화하는 것 외에도 구현별로 그룹화 할 수도 있습니다.
 
@@ -310,7 +309,7 @@ undefit=샘플 크기에 비해 매개 변수가 너무 적은 통계 모델을 
 
 --
 
-#h2 선형회귀(Linear regression )
+## 선형회귀(Linear regression )
 
 회귀 알고리즘은 크기, 나이, 욕실 수, 층 수, 위치 등과 같은 특정 기능이있는 집의 비용과 같이 가치를 예측하기 위해 입력 데이터의 기능을 사용하는 감독 알고리즘의 일종입니다.
 
@@ -367,12 +366,12 @@ therefore, moving w in the opposite direction to the derivative will improve our
 
 
 
-[그래프](C:\Users\dlrmacjf\Desktop\python>minima.PNG)
+![그래프](./deep_picture/minima.PNG)
 
 상단 그래프는 볼록형이므로 하나의 최소값 만 존재합니다. 아래 그래프에서 함수는 두 개의 로컬 미니 마를 가지므로 초기화에 따라 프로세스가 전역 최소가 아닌 첫 번째 로컬 최소값을 찾을 수 있습니다.
 
 --
-#h2 결정트리(Decision trees )
+## 결정트리(Decision trees )
 
 널리 사용되는 또 다른 감독 알고리즘은 의사 결정 트리 알고리즘입니다.
 
@@ -402,7 +401,7 @@ therefore, moving w in the opposite direction to the derivative will improve our
 
 논의 된 결정 트리는 왼쪽 노드가 결정 노드에서의 테스트에 대한 긍정적 인 대답을 반영하는 반면, 오른쪽 분기는 결정 노드에서의 테스트에 대한 부정적인 응답을 나타냅니다.각 분기의 끝 노드는 리프 노드입니다.
 
-[결정트리](C:\Users\dlrmacjf\Desktop\python>division tree.PNG)
+![결정트리]./deep_picture/divisiontree.PNG)
 
 이 예는 의사 결정 트리 알고리즘이 선형 회귀와 얼마나 다른지를 보여줍니다. 또한, 신경망을 도입 할 때 독자는이 동일한 데이터 집합을 사용하여 신경망의 작동 방식을 볼 수 있습니다. 이 예제에서 우리는 파이썬 코드도 제공 할 것이고 신경망이 그들의 특징에 따라 꽃을 어떻게 분리하려고하는지 몇 가지 그림을 보여줄 것입니다.
 
@@ -430,7 +429,6 @@ K-means는 상대적으로 간단한 과정이며, k 개의 부분 집합의 중
 4. 새로운 중심을 새로운 중심으로 정의하십시오.
 5. 중심이 움직이지 않을 때까지 3 단계와 4 단계를 반복하십시오.
 
-=
 
 이 방법은 임의의 centriods(중앙점)의 초기 선택에 민감하며, 다른 초기 선택(다른 임의의 중앙점을 다시 선택한다.)에 대해 과정을 반복하는 것이 좋은 생각일 수 있다는 점에 유의해야 한다.
 
@@ -450,7 +448,7 @@ K-means는 상대적으로 간단한 과정이며, k 개의 부분 집합의 중
 
 k-means 클러스터링 기법을 사용하여 나중에 각 배달 장소까지의 거리를 최소화하는 4 개의 최적 위치를 식별 할 수 있습니다. 이것은 k-means 클러스터링이 비즈니스 문제를 해결하는 데 도움이 될 수있는 예입니다.
 
-[ㅏals](C:\Users\dlrmacjf\Desktop\python>k-means)
+![ㅏals](C:\Users\dlrmacjf\Desktop\python>k-means)
 
 #h2 나이브베이즈(Naïve Bayes )
 
@@ -515,7 +513,6 @@ p(test1 and test2=pos | cancer) =p(test1=pos | cancer)*p(test2=pos | cancer)
 p(cancer | both tests=pos) = = p(both test=pos | cancer)*p(cancer)/p(both tests=pos)  = = p(test1=pos | cancer)*p(test2=pos | cancer) *p(cancer)/p(both tests=pos) 
 
 
-아! 존나모르겠다
 --
 
 #h2 보조벡터머신(Support vector machines)
@@ -556,7 +553,7 @@ p(cancer | both tests=pos) = = p(both test=pos | cancer)*p(cancer)/p(both tests=
 
 그러나 이는 다시 고전 기계 학습 알고리즘에서 올바른 기능을 선택하는 중요성을 다시 한번 강조하며, 특정 문제에 대한 해결책을 찾는 데 도움이 될 수 있습니다.
 
-[서포트벡터](C:\Users\dlrmacjf\Desktop\python>support vector.PNG)
+![서포트벡터](./deep_picture/supportvector.PNG)
 
 왼쪽에는 커널이 적용되기 전에 비선형으로 분리 가능한 세트가 있습니다. 오른쪽은 커널이 적용된 후 동일한 데이터 세트이고 데이터는 선형으로 분리 될 수 있습니다
 
@@ -617,7 +614,7 @@ p(cancer | both tests=pos) = = p(both test=pos | cancer)*p(cancer)/p(both tests=
 그리고 퍼셉트론은 선형 분류자에 의해 제한된다. 뉴런 내부 상태로 간주되어야 할 활성화 값이 고정 임계값 b보다 크면 뉴런은 활성화될 것입니다. 즉, 작동하거나 그렇지 않으면 작동하지 않습니다.
 
 
-[퍼셉트론][C:\Users\dlrmacjf\Desktop\python>perseptron.PNG]
+![퍼셉트론]./deep_picture/perseptron.PNG]
 
 세 개의 입력 장치 (뉴런)와 하나의 출력 장치 (뉴런)가있는 간단한 퍼셉트론
 
@@ -632,7 +629,7 @@ p(cancer | both tests=pos) = = p(both test=pos | cancer)*p(cancer)/p(both tests=
 
 이 경우 연결 가중치가 -b 값을 가지면 활성화 값은 a(x) = \\(sum_i w_i x_i\\) 가되고 a (x)> 0으로 설정하는 것은  \\(sum_i w_i x_i\\) > b.로 설정하는 것과 같다.
 
-[가중ㅊ](C:\Users\dlrmacjf\Desktop\python>input layer.PNG)
+![가중ㅊ](./deep_picture/inputlayer.PNG)
 출력 벡터에 바이어스 단위가 추가 된 퍼셉트론 바이어스 단위는 항상 켜져 있습니다.
 
 퍼셉트론은 퍼포먼스가 제한적이지만 신경망의 첫 번째 사례이기 때문에 역사적으로 매우 중요합니다.
@@ -672,7 +669,9 @@ p(cancer | both tests=pos) = = p(both test=pos | cancer)*p(cancer)/p(both tests=
 또한 일부 신경 네트워크의 구조는 기억을 만들 수 있는 에너지 기능을 정의하도록 허용할 수 있다.
 이 모든 흥미로운 기능은 다음 장에서 논의 될 것이며, 우리는 심화 학습에서 가장 최근 개발을 탐구 할 것입니다.
 
-[신경망 네트워크와 하나의 히든레이어.][C:\Users\dlrmacjf\Desktop\python>hidden layer.PNG]
+![신경망 네트워크와 하나의 히든레이어.][./deep_picture/hiddenlayer.PNG]
+
+
 --
 
 #h2 현실의 실행(Applications in real life)
@@ -747,3 +746,298 @@ scikitlearn 라이브러리는 각 기계 학습 알고리즘에 대해 유사�
 예를 들어 scikit-learn으로 다층 신경망을 사용하려면 다음과 같이 입력하여 프로그램에서 가져올 수 있습니다.
 `from sklearn.neural_network.multilayer_perceptron import MLPClassifie`
 
+# RNN 부분
+
+RNN은 반복적으로 동일한 함수를 시퀀스에 적용하기 때문에 생긴 이름이다. RNN은이 함수로 정의 된 반복 관계로 작성할 수 있습니다.
+
+$S_t= f(S_{t-1}, X_t)$
+
+여기에서 $S_t$ - 단계 t에서의 상태는 이전 단계의 상태, 즉 t-1에서 함수 f와 현재 단계에서 입력 $X_t$에 의해 계산됩니다. 이 반복 관계는 다음 그림 에서처럼 상태가 이전 상태에 대한 피드백 루프를 통해 시퀀스를 단계적으로 전개하는 방식을 정의합니다
+
+![피규어 폼][./deep_picture/figureform.PNG]
+
+left : RNN 반복 관계의 시각적 그림: $S_t=s_{t-1}*W+X_t*U$ 최중 출력은 $O_t = V*S_t$
+
+right: RNN 상태가 순서 t-1,t,t+1 반복적으로 전개된다.
+
+매개변수 U,V,W은 모든 단계 사이에서 공유된다
+
+여기서 f는 임의의 차등 함수 일 수 있다. 예를 들어, 기본 RNN은 다음과 같은 반복 관계로 정의.
+
+$S_t = tanh(S_{t-1} * W + X_t * U)$
+
+여기서 W는 상태에서 상태로 선형 변환을 정의하고, U는 입력에서 상태로의 선형 변환
+tanh 기능은 logit, tanh 또는 ReLU와 같은 다른 변환으로 대체 될 수 있습니다. 
+다음 그림은이 관계를 보여줍니다. 여기서 $O_t$는 네트워크에서 생성 된 출력입니다.
+
+예를 들어, 단어 수준 언어 모델링에서 입력 X는 입력 벡터 (X1 ... Xt ...)로 인코딩 된 일련의 단어가됩니다.
+
+상태 S는 일련의 상태 벡터 (S1 ... St ...)가됩니다. 출력 O는 시퀀스의 다음 단어의 확률 벡터 (O1 ... Ot ...)의 시퀀스가됩니다.
+
+RNN에서 각 상태는 이 반복 관계를 통해 이전의 모든 계산에 의존합니다.
+
+이것의 중요한 의미는 상태 S가 이전 단계에 기초한 정보를 포함하고 있기 때문에 rnn은 시간의 흐름에 따른 메모리를 가지고 있다는 것.
+
+이론적으로 RNN은 임의의 오랜 기간 동안 정보를 기억할 수 있지만 실제로는 몇 단계 만 되돌아 보는 것으로 제한.
+-vanising gardient.
+
+RNN은 고정 크기의 입력을 처리하는 데에만 국한되지 않으므로 다양한 길이의 시퀀스 나 다양한 크기의 이미지와 같이 신경망을 사용하여 계산할 수있는 가능성을 실제로 확장합니다.
+
+다음 그림은 우리가 만들 수있는 시퀀스의 조합을 시각적으로 보여줍니다. 다음은 이러한 조합에 대한 간단한 참고 사항입니다.
+
+![이미지 폼][./deep_picture/imageform.PNG]
+
+
+• 일대일 : 이는 피드 포워드 신경망 및 길쌈 신경 네트워크와 같이 비 순차적 처리입니다.
+피드 포워드 네트워크와 RNN을 단일 시간 단계에 적용하는 것은별로 다르지 않습니다.
+일대일 처리의 한 예는 장 (Chapter 5, Image Recognition 참조)에서의 이미지 분류입니다.
+
+• 일대 다 : 이미지에서 캡션 생성과 같은 단일 입력을 기반으로 시퀀스를 생성합니다 [4].
+
+• 다 대일 (Many-to-one) : 시퀀스를 기반으로 단일 결과를 출력합니다 (예 : 텍스트의 감정 분류).
+
+• 다 대다 간접 : 시퀀스는 상태 벡터로 인코딩되고, 그 후에이 상태 벡터는 언어 번역 [5], [6]과 같은 새로운 시퀀스로 디코드됩니다.
+
+• 다 대다 직접 : 음성 인식에서 프레임 음소 레이블링과 같은 각 입력 단계에 대한 결과를 출력합니다 (음성 인식 섹션 참조).
+
+
+
+## RNN 구현 및 훈련 방법.
+
+
+순서대로 세기.
+
+입력 및 출력의 예는 다음과 같습니다.
+In:  (0, 0, 0, 0, 1, 0, 1, 0, 1, 0) Out:  3
+
+![기본 rnn][./deep_picture/basicrnn.PNG]
+
+네트워크에는 입력 가중치 U와 반복 가중치 W의 두 가지 매개 변수 만 있습니다.
+출력 가중치 V는 1로 설정되므로 마지막 상태를 출력 y로만 읽습니다.
+이 네트워크에 의해 정의 된 반복 관계는 $S_t = S_{t-1} * W + X_t * U$이다.
+이 공식에서 비선형 함수를 적용하지 않기 때문에 선형 모델이라는 점에 유의하십시오.
+
+코드로하면 다음과 같다.
+def step(s, x, U, W):
+    return x * U + s * W
+
+3은 우리가 출력하기를 원하는 숫자이고 세 개가 있기 때문에 좋은 해결책은 그냥 시퀀스 전체의 입력 합을 얻는 것입니다.
+U = 1로 설정하면 입력이 수신 될 때마다 전체 값을 얻습니다. W = 1로 설정하면 누적 될 값은 결코 감소하지 않습니다. 따라서이 예제에서는 원하는 출력을 얻습니다. 3
+
+## 시간에 따른 역전파
+
+시간에 따른 역전파 알고리즘을 통한 역전파는 우리가 반복되는 네트워크를 훈련하는 데 사용하는 일반적인 알고리즘이다.
+-이미 좆같은 2장에서 논의함
+
+정규 역전파랑 시간에 따른 역전파는 그리 큰 차이 나지않음.
+주요 차이점은 회귀 네트워크 시간 단계의 특정 번호에 대한 시간을 통해 전개 될 필요가 있다는 것이다.
+
+이 전개는 앞의 그림 (입력에서 1을 세는 기본 RNN)에 설명.전개가 완료되면 multi feedforward 네트워크와 매우 유사한 모델이 완성.
+
+유일한 차이점은 각 레이어가 다중 입력 (이전 상태, $S_{t-1}$)을 가지며 현재 입력 ($X_t$)과 매개 변수 (여기에서 U 및 W)가 각 레이어간에 공유된다는 것입니다
+순방향 전달은 시퀀스를 따라 RNN의 래핑을 해제하고 각 단계에 대한 일련의 활동을 구축합니다. 일련의 입력 시퀀스 X가있는 진행 단계는 다음과 같이 구현할 수 있습니다.
+
+~~~python
+def forward(X, U, W):
+    # Initialize the state activation for each sample along the sequence
+    S = np.zeros((number_of_samples, sequence_length+1))
+    # Update the states over the sequence
+    for t in range(0, sequence_length):
+        S[:,t+1] = step(S[:,t], X[:,t], U, W)  # step function
+    return S
+~~~
+이 전진 단계 후에, 배치의 각 단계 및 각 샘플에 대해 S로 표시되는 결과 활성화가 나타납니다.
+우리는 더 많거나 적은 연속적인 출력 (모든 것을 합한 것)을 출력하기를 원하기 때문에 평균 제곱 오차 비용 함수를 사용하여 목표 및 출력 y에 대한 출력 비용을 정의합니다.
+
+cost = np.sum((targets – y)**2) 
+
+앞으로 단계와 비용 함수가 생겨서 그래디언트가 어떻게 뒤쪽으로 전달되는지 정의 할 수 있습니다.
+
+먼저, 비용 함수와 관련하여 출력 y의 기울기를 구해야한다.(∂ξ/∂y).
+
+이 그래디언트가 있으면 앞으로 단계에서 작성한 액티비티 스택을 통해 이를 뒤로 전파 할 수 있습니다.
+이 역방향 패스는 각 시간 단계에서 오류 파생물을 누적하기 위해 스택에서 활동을 팝합니다. 이 그라디언트를 네트워크를 통해 전파하는 반복 관계는 다음과 같이 작성할 수 있습니다.
+
+
+
+수학식은 차라리 구글 디벨로퍼참조.
+
+https://google-developers.appspot.com/machine-learning/crash-course/backprop-scroll/?hl=ko&refresh=1
+
+
+
+
+
+~~~python
+def backward(X, S, targets, W):
+    # Compute gradient of output
+    y = S[:,-1]  # Output `y` is last activation of sequence
+    # Gradient w.r.t. cost function at final state
+    gS = 2.0 * (y - targets)    # Accumulate gradients backwards
+    gU, gW = 0, 0  # Set the gradient accumulations to 0
+    for k in range(sequence_len, 0, -1):        # Compute the parameter gradients and accumulate the          results.
+        gU += np.sum(gS * X[:,k-1])
+        gW += np.sum(gS * S[:,k-1])        # Compute the gradient at the output of the previous layer
+        gS = gS * W
+    return gU, gW
+~~~
+
+그라디언트 디센트를 사용하여 네트워크를 최적화하려고 할 수 있습니다.
+
+~~~python
+learning_rate = 0.0005 # Set initial parameters
+parameters = (-2, 0)  # (U, W) 
+# Perform iterative gradient descent
+for i in range(number_iterations):
+# Perform forward and backward pass to get the gradients
+    S = forward(X, parameters(0), parameters(1))
+    gradients = backward(X, S, targets, parameters(1))
+    # Update each parameter `p` by p = p - (gradient *      learning_rate).
+    # `gp` is the gradient of parameter `p`
+    parameters = ((p - gp * learning_rate) for p, gp in zip(parameters, gradients))
+~~~
+
+
+
+![그래디언트 폭발][./deep_picture/gradient_explosion.PNG]
+
+하지만 문제가 있습니다. 이 코드를 실행하려고하면 최종 매개 변수 U 및 W가 숫자가 아닌 숫자 (NaN)로 끝나는 경향이 있습니다.
+
+  다음 그림과 같이 오류 표면에 매개 변수 업데이트를 플로팅하여 어떤 일이 발생했는지 조사해 봅시다.
+
+파라미터가 오버 슈트되고 대략 히트 (U = W = 1.5) 될 때까지 파라미터가 최적 (U = W = 1) 방향으로 천천히 이동합니다.
+
+  이 시점에서 그래디언트 값이 폭발하고 매개 변수 값이 플롯 바깥으로 점프합니다.
+
+  이 문제는 폭발 그라데이션으로 알려져 있습니다. 다음 섹션에서는 이것이 왜 발생하는지 자세히 설명하고 어떻게 예방하는지 설명합니다.
+
+
+## 배니싱, 폭발 그래디언트
+
+RNN은 피드 포워드 또는 컨볼루션 네트워크보다 훈련하기가 더 어려울 수 있습니다. RNN의 반복적 인 특성 때문에 모든 가중치 행렬이 모든 상태 업데이트를 계산하는 데 사용되는 몇 가지 어려움이 발생합니다 [9,10]
+
+앞의 그림의 마지막 섹션의 끝 부분에는 폭발적인 그라디언트가 묘사되어 장기 구성 요소의 폭발로 RNN 교육이 불안정한 상태로 바뀝니다.
+
+폭발적인 그라디언트 문제 외에도 반대 상황이 발생하면 사라지는 그라디언트 문제가 있습니다.
+롱텀컴포넌트는 기하 급수적으로 빠르게 0이되고, 모델은 시간적으로 먼 사건을 통해 학습 할 수 없습니다.
+이 섹션에서는 문제를 자세히 설명하고 문제를 처리하는 방법에 대해서도 설명합니다.
+
+폭발하는 것과 사라지는 그라디언트는 그라디언트를 역방향으로 전파하는 반복 관계가 기하학적 순서를 형성한다는 사실로부터 발생합니다
+
+폭발하는 것과 사라지는 그라디언트는 모두 재발 관계가 전파된다는 사실에서 비롯된다.
+시간의 경과에 따른 그래디언트 (gradient)는 기하학적 시퀀스를 형성한다 :
+
+$\frac{aS_t}{aS_{t-m}} = \frac{\frac{aS_t}{aS_{t-1}}*....*aS_{t-m+1}}{aS_{t-m}}=W^m$
+
+우리는 단순한 선형 RNN에서 만약 [W] >1 이라면 그레디언트가 기하급수로 증가한다.
+이것은 폭발 그라데이션으로 알려져 있습니다 (예 : W = 1.5에서 50 시간 간격은 W50 = 1.550 ≈ 6 * 108).
+
+  W | <1 라면 그래디언트가 감소한다. 이것이 배니싱 그래디언트 (예를 들어 W = 0.6 이상의 20 시간 간격은 W20 = 0.620 ≈ 3 * 10-5 임).
+
+
+가중치 매개변수 파라미터 w가 스칼라 대신 행렬이라면 배니싱 혹은 폭발 그래디언트는 W의 최대 고유치(p)와 관련있다.(스펙트럼반경이러고도함)
+
+그라디언트가 사라지려면 ρ <1이면 충분하며, ρ> 1 인 경우 그라디언트가 폭발
+
+다음 그림은 폭발 그라디언트의 개념을 시각적으로 보여줍니다.
+
+우리가 훈련하는 비용 표면은 매우 불안정합니다.
+
+작은 단계를 사용하여 비용 함수의 안정적인 부분으로 이동할 수 있습니다.이 부분에서는 그래디언트가 낮고 비용이 급격히 증가하고 그에 해당하는 거대한 기울기가 발생합니다.
+
+이 그라디언트가 너무 크기 때문에 매개 변수에 큰 영향을 미칩니다. 그들은 원래 있던 곳과는 거리가 먼 비용면에서 끝날 것입니다. 그래디언트 강하 학습이 불안정하고 심지어 경우에 따라 불가능 해집니다.
+
+![폭발그래디언트](./deep_picture/explo_gradi.PNG)
+
+그라디언트가 커질 수있는 크기를 조절하여 폭발하는 그라디언트 효과에 대응할 수 있습니다.
+
+• 그래디언트 클리핑, 여기서 그라디언트가 얻을 수있는 최대 값을 임계 값으로 설정합니다 [11].
+• 2 차 최적화 (Newton 's method) : 비용 함수의 곡률을 모델링합니다. 곡률을 모델링하면 곡률이 낮은 시나리오에서 큰 단계를 취할 수 있고 곡률이 높은 시나리오에서는 작은 단계를 수행 할 수 있습니다. 계산상의 이유로 일반적으로 2 차 구배의 근사치 만 사용됩니다 
+• 모멘텀 또는 로컬 그래디언트에 덜 의존하는 RmsProp과 같은 최적화 방법. 
+
+예를 들어, Rprop을 사용하여 수렴 할 수없는 네트워크를 재교육 할 수 있습니다 (위 그림의 폭발 그라디언트 그림 참조).
+
+Rprop은 모멘텀 매개 변수를 업데이트하기 위해 그래디언트 부호 만 사용하는 모멘텀 형 메서드이므로 폭발 그라디언트의 영향을받지 않습니다.
+
+Rprop 최적화를 실행하면 다음 그림에서 해당 교육이 수렴 함을 알 수 있습니다. 트레이닝이 높은 그래디언트 영역 (U = -1.5, W = 2)에서 시작하는 동안 최적의 위치 (U = W = 1)를 찾을 때까지 빠르게 수렴합니다.
+![Rprop](./deep_picture/rprop.PNG)
+
+
+사라지는 그라디언트 문제는 폭발적인 그라디언트 문제의 반대입니다.기울기는 단계 수에 따라 기하 급수적으로 감소합니다.
+이것은 이전 상태의 그래디언트들이 극도로 작아지고 이전의 상태를 기억 못하게 되는 것을 말한다.
+
+초기 시간 단계의 작은 그라디언트는보다 최근의 시간 단계의 큰 그라디언트에 의해 무능해진다.
+시간에 따른 역전파는 최근의 활동에 너무 민감하다.
+
+## LSTM
+
+이론적으로, 간단한 RNN은 장기 종속성을 학습 할 수 있지만 실제로는 배니싱그래디언트 때문에 단기 의존성만 학습하는 것으로 제한됩니다.LSTM은 특수하게 조작 된 메모리 셀로 인해 장기 의존성을 처리 할 수 있습니다.
+
+LSTM의 핵심 아이디어는 외부 상태가 없다면 셀 상태가 일정하게 유지되도록 정보를 명시 적으로 기록하거나 제거 할 수있는 셀 상태입니다.
+
+시간 t에 대한이 셀 상태는 다음 그림에서 ct로 표시됩니다.
+LSTM 셀 상태는 정보를 전달할 수있는 특정 게이트에서만 변경할 수 있습니다.
+
+이 게이트는 시그모이드 함수와 요소 단위의 곱셈으로 구성됩니다.
+로지스틱 함수는 0과 1 사이의 값만 출력하기 때문에 곱셈은 게이트를 통과하는 값을 줄일 수 있습니다. 일반적인 LSTM은 잊어 버린 게이트, 입력 게이트 및 출력 게이트의 세 가지 게이트로 구성됩니다. 이들은 모두 다음 그림에서 f, i 및 o로 표시됩니다. 셀 상태, 입력 및 출력은 모두 벡터이므로 LSTM은 각 시간 단계마다 서로 다른 정보 블록의 조합을 보유 할 수 있습니다. 다음은 각 게이트의 작동 방식을 자세히 설명합니다.
+
+![LSTM](./deep_picture/LSTM.PNG)
+
+LSTM의 셀들 계산식은 다음과 같다.
+$x_t, c_t, h_t$는 각각 시간 t에서의 입력, 셀 상태 및 LSTM 출력이다.
+
+$f_t =\sigma(W_fh_{t-1}+U_fx_t+b_f)$
+
+$i_t =\sigma(W_ih_{t-1}+U_ix_t+b_i)$
+
+$a_t = tanh(W_ch_{t-1}+U_cx_t+b_c)$
+
+$o_t=\sigma(W_oh_{t-1}+U_ox_t+b_o)$
+
+$c_t=f_t*c_{t-1}+i_t*a_t$
+
+$h_t=o_t*tanh(c_t)$
+
+LSTM의 첫 번째 게이트는 잊어 버린 게이트입니다. 그것은 우리가 셀 상태를 지우고 싶은지 아닌지를 결정하기 때문에 그   렇게 불린다.
+
+forget 게이트는 이전 출력 $h_{t-1}$과 현재 입력 $x_t$에 대한 결정을 기반으로합니다.
+이 정보를 결합하여 로지스틱 함수로 압축하여 셀 벡터의 각 블록에 대해 0과 1 사이의 숫자를 출력합니다.셀과 요소 적으로 곱하기 때문에 0 출력은 특정 셀 블록을 완전히 지우고 1 출력은 해당 셀의 모든 정보를 차단합니다. 이것은 LSTM이 셀 상태 벡터에서 관련없는 정보를 제거 할 수 있음을 의미합니다.
+
+$f_t =\partial(W_fh_{t-1}+U_fx_t+b_f)$
+
+
+다음 게이트는 어떤 새로운 정보가 메모리 셀에 추가 될지를 결정합니다.
+이것은 두 부분으로 이루어집니다. 첫 번째 부분은 정보가 추가 될지 여부를 결정합니다.
+입력 게이트에서와 마찬가지로 $h_{t-1}과 x_t$를 결정하고 셀 벡터의 각 셀 블록에 사용할 수있는 로지스틱 함수를 통해 0 또는 1을 출력합니다.
+출력 0은 해당 셀 블록의 메모리에 정보가 추가되지 않음을 의미합니다. 결과적으로 LSTM은 셀 상태 벡터에 특정 정보를 저장할 수 있습니다.
+
+$i_t =\partial(W_ih_{t-1}+U_ix_t+b_i)$
+
+추가 된 입력은 이전 출력 $(h_{t-1})$과 현재입력 $(x_t)$에서 파생되며 tanh 함수를 통해 변환됩니다
+
+$a_t = tanh(W_ch_{t-1}+U_cx_t+b_c)$
+
+잊기 및 입력 게이트는 추가할 새 정보와 함께 이전 셀 상태를 추가하여 새 셀을 완전히 결정합니다.
+
+$c_t=f_t*c_{t-1}+i_t*a_t$
+
+
+마지막 게이트는 출력을 결정합니다. 출력 게이트는 입력으로 $h_{t-1} 및 x_t$를 취하고 각 셀 블록의 메모리에 사용할 수있는 로지스틱 함수를 통해 0 또는 1을 출력합니다. 출력 0은 셀 블록이 정보를 출력하지 않음을 의미하고 출력 1은 전체 셀 블록의 메모리가 셀의 출력으로 전송됨을 의미합니다. 따라서 LSTM은 셀 상태 벡터로부터 특정 정보 블록을 출력 할 수 있습니다.
+
+$o_t=\partial(W_oh_{t-1}+U_ox_t+b_o)$   
+
+출력 된 최종 값은 tanh 함수로 전송 된 셀의 메모리입니다.
+
+$h_t=o_t*tanh(c_t)$
+
+이 모든 수식은 파생 가능하기 때문에 우리는 간단한 RNN 상태를 연결하고 시간에 따른 역 전파를 통해 네트워크를 훈련하는 것처럼 LSTM 셀을 함께 연결할 수 있습니다. 이제 LSTM은 어떻게 사라지는 그라디언트로부터 우리를 보호합니까?
+
+forget 게이트가 1이고 입력 게이트가 0이면 셀 상태는 단계별로 똑같이 복사됩니다. forget게이트 만이 셀의 메모리를 완전히 지울 수 있습니다.
+
+결과적으로 메모리는 오랜 기간 동안 변경되지 않은 상태로 유지 될 수 있습니다.또한 입력이 현재 셀의 메모리에 추가된 tanh 활성화 함수라는 거슬 알수있다
+
+이것은 세포 기억이 폭발하지 않고 매우 안정하다는 것을 의미합니다. LSTM이 실제 어떻게 전개되는지는 다음 그림에 설명되어 있습니다
+
+![LSTM_gate](./deep_picture/LSTM_gate.PNG)
+
+처음에는 4.2 값이 네트워크에 입력으로 제공됩니다. 입력 게이트는 1로 설정되어 완전한 값이 저장됩니다. 그런 다음 다음 두 단계 동안 잊어 버린 게이트는 1로 설정됩니다. 따라서이 단계에서 전체 정보가 유지되고 입력 게이트가 0으로 설정되므로 새로운 정보가 추가되지 않습니다. 마지막으로 출력 게이트가 1로 설정됩니다 , 4.2가 출력되고 변경되지 않음
